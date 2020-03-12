@@ -1,2 +1,4 @@
 # JITranslate
-Android app for reading books and translating unknown words 
+Android app for translating unknown words whilst reading a book
+
+
