@@ -34,7 +34,7 @@ Android app for translating unknown words whilst reading a book
 
 4th activity:
 
-* to display a stored word
+* to display stored words
 
 5th activity:
 
