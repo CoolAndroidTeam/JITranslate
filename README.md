@@ -1,8 +1,6 @@
 # JITranslate
 Android app for translating unknown words whilst reading a book
 
-[API](https://developers.google.com/books) for books
-
 [API](https://rapidapi.com/googlecloud/api/google-translate1) for translating
 
 #### We have 5 activities:
