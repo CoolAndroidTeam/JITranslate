@@ -1,5 +1,6 @@
 package com.coolcode.jittranslate.fragments.bookview;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,8 +34,10 @@ public class DataAdapterBookView extends RecyclerView.Adapter<BookViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull BookViewHolder holder, int position) {
-        TextView pageView = holder.getPageView();
+        TextView pageView = holder.getPageTextView();
         pageView.setText(bookPages.get(position).getText());
+        TextView pageNumView = holder.getPageNumView();
+        pageNumView.setText(String.valueOf(position+1));
     }
 
     @Override

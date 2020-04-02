@@ -7,6 +7,7 @@ import com.kursx.parser.fb2.FictionBook;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,15 +73,19 @@ public class BookViewFragment extends Fragment {
             FictionBook fictionBook = new FictionBook(file);
             final ArrayList<Section> sections = fictionBook.getBody().getSections();
             sections.forEach(section -> {
-                ArrayList<Element> sectionPages = section.getElements();
-                ArrayList<Element> newSectionPages = new ArrayList<>();
-                sectionPages.forEach(sectionPage -> {
-                    if (sectionPage.getText() != null) {
-                        newSectionPages.add(sectionPage);
-                    }
-                });
-                    pages.addAll(newSectionPages);
-            });
+                        ArrayList<Element> sectionPages = section.getElements();
+                        sectionPages.forEach(sectionPage -> {
+                            if (sectionPage.getText() != null && !sectionPage.getText().equals("")) {
+                                pages.add(sectionPage);
+                                Log.d("page", sectionPage.getText());
+//                        System.out.println(pages.get(pages.size()-1).getText());
+//                        System.out.println(pages.size()-1);
+                            }
+                        });
+                    });
+            System.out.println(pages.get(0).getText());
+            System.out.println(pages.get(1).getText());
+            System.out.println(pages.get(2).getText());
         } catch (ParserConfigurationException | IOException | SAXException e) {
             e.printStackTrace();
         }

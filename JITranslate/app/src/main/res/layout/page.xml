@@ -1,17 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
         android:id="@+id/page_text"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:gravity="start"
         android:background="@android:color/transparent"
         android:fontFamily="@font/fasthand_regular"
-        tools:text="100"
+        tools:text="asdasd"
+        />
+    <TextView
+        android:id="@+id/page_number"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/page_text"
+        android:layout_alignParentEnd="true"
+        android:gravity="end|bottom"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/fasthand_regular"
+        tools:text="1"
         />
 
-</LinearLayout>
+</RelativeLayout>

@@ -12,14 +12,18 @@ import com.coolcode.jittranslate.R;
 public class BookViewHolder extends RecyclerView.ViewHolder {
 
     private TextView pageTextView;
+    private TextView pageNumView;
 
     public BookViewHolder(@NonNull View itemView, Fragment fragment) {
         super(itemView);
         pageTextView = itemView.findViewById(R.id.page_text);
+        pageNumView = itemView.findViewById(R.id.page_number);
     }
 
-    public TextView getPageView() {
+    public TextView getPageTextView() {
         return pageTextView;
     }
-
+    public TextView getPageNumView() {
+        return pageNumView;
+    }
 }
