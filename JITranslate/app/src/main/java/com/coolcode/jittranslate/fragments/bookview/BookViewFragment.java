@@ -3,6 +3,7 @@ package com.coolcode.jittranslate.fragments.bookview;
 import com.coolcode.jittranslate.utils.Constants;
 import com.coolcode.jittranslate.utils.FileReader;
 import com.kursx.parser.fb2.Element;
+import com.kursx.parser.fb2.EmptyLine;
 import com.kursx.parser.fb2.FictionBook;
 
 import android.os.Build;
@@ -22,8 +23,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.coolcode.jittranslate.EventListenerActivity;
 import com.coolcode.jittranslate.R;
+import com.kursx.parser.fb2.Image;
+import com.kursx.parser.fb2.P;
 import com.kursx.parser.fb2.Section;
 
+import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
 import java.io.BufferedReader;
@@ -38,6 +42,7 @@ import javax.xml.parsers.ParserConfigurationException;
 public class BookViewFragment extends Fragment {
     private EventListenerActivity activity;
     private ArrayList<Element> data;
+    private FictionBook fictionBook;
 
     public void setEventListenerActivity(EventListenerActivity activity) {
         this.activity = activity;
@@ -70,26 +75,24 @@ public class BookViewFragment extends Fragment {
     private ArrayList<Element> readBook(File file) {
         ArrayList<Element> pages = new ArrayList<>();
         try {
-            FictionBook fictionBook = new FictionBook(file);
+            fictionBook = new FictionBook(file);
+//            P p = (P)fictionBook.getBody().getSections().get(1).getElements().get(4);
+//            System.out.println(p.getImages().get(0));
+//            System.out.println(p.getImages().get(0).getValue());
+//            System.out.println(p.getImages().get(0).getName());
             final ArrayList<Section> sections = fictionBook.getBody().getSections();
             sections.forEach(section -> {
                         ArrayList<Element> sectionPages = section.getElements();
-                        sectionPages.forEach(sectionPage -> {
-                            if (sectionPage.getText() != null && !sectionPage.getText().equals("")) {
-                                pages.add(sectionPage);
-                                Log.d("page", sectionPage.getText());
-//                        System.out.println(pages.get(pages.size()-1).getText());
-//                        System.out.println(pages.size()-1);
-                            }
-                        });
+                pages.addAll(sectionPages);
                     });
-            System.out.println(pages.get(0).getText());
-            System.out.println(pages.get(1).getText());
-            System.out.println(pages.get(2).getText());
         } catch (ParserConfigurationException | IOException | SAXException e) {
             e.printStackTrace();
         }
         return pages;
+    }
+
+    public FictionBook getFictionBook() {
+        return this.fictionBook;
     }
 
 }

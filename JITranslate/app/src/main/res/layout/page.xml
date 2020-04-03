@@ -8,21 +8,31 @@
         android:id="@+id/page_text"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:width="@android: "
         android:gravity="start"
         android:background="@android:color/transparent"
         android:fontFamily="@font/fasthand_regular"
+        android:textSize="@dimen/text_standart"
         tools:text="asdasd"
+        />
+    <ImageView
+        android:id="@+id/page_pic"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/page_text"
+        tools:src="@drawable/bk"
         />
     <TextView
         android:id="@+id/page_number"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:layout_below="@id/page_text"
+        android:layout_below="@id/page_pic"
         android:layout_alignParentEnd="true"
         android:gravity="end|bottom"
         android:background="@android:color/transparent"
         android:fontFamily="@font/fasthand_regular"
-        tools:text="1"
+        android:text="1"
         />
+
 
 </RelativeLayout>
