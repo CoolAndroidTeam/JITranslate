@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_library">
+
+    <fragment
+        android:id="@+id/navigation_library"
+        android:name="com.coolcode.jittranslate.ui.library.LibraryFragment"
+        android:label="My library"
+        tools:layout="@layout/fragment_library" />
+
+    <fragment
+        android:id="@+id/navigation_shop"
+        android:name="com.coolcode.jittranslate.ui.shop.ShopFragment"
+        android:label="Buy books"
+        tools:layout="@layout/fragment_shop" />
+
+    <fragment
+        android:id="@+id/navigation_study"
+        android:name="com.coolcode.jittranslate.ui.study.StudyFragment"
+        android:label="Learn new words"
+        tools:layout="@layout/fragment_study" />
+    <fragment
+        android:id="@+id/navigation_forum"
+        android:name="com.coolcode.jittranslate.ui.forum.ForumFragment"
+        android:label="Discuss books"
+        tools:layout="@layout/fragment_study" />
+</navigation>
