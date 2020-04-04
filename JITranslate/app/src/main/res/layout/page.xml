@@ -8,7 +8,6 @@
         android:id="@+id/page_text"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:width="@android: "
         android:gravity="start"
         android:background="@android:color/transparent"
         android:fontFamily="@font/fasthand_regular"
