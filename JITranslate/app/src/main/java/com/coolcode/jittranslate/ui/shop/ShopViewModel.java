@@ -13,7 +13,11 @@ public class ShopViewModel extends ViewModel {
         mText.setValue("This is shop fragment");
     }
 
+
     public LiveData<String> getText() {
         return mText;
+    }
+    public void setValue(String str){
+        mText.setValue(str);
     }
 }

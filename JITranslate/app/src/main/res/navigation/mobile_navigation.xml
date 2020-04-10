@@ -15,7 +15,9 @@
         android:id="@+id/navigation_shop"
         android:name="com.coolcode.jittranslate.ui.shop.ShopFragment"
         android:label="Buy books"
-        tools:layout="@layout/fragment_shop" />
+
+        tools:layout="@layout/fragment_shop"
+        />
 
     <fragment
         android:id="@+id/navigation_study"
