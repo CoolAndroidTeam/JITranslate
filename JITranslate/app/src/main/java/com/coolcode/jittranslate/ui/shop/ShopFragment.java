@@ -11,18 +11,26 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -62,14 +70,16 @@ public class ShopFragment extends Fragment {
 
 
     public interface OnItemSelectedListener {
-        void onItemSelected(String number, int color);
+        void onItemSelected(String book_thumbnail, String book_title, String book_category,
+                            String book_rating, String book_author, String book_price,
+                            String book_buy, String book_preview, String book_description);
     }
 
-//    @Override
-//    public void onAttach(@NonNull Context activity) {
-//        super.onAttach(activity);
-//        mListener = (OnItemSelectedListener) activity;
-//    }
+    @Override
+    public void onAttach(@NonNull Context activity) {
+        super.onAttach(activity);
+        mListener = (OnItemSelectedListener) activity;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -89,7 +99,6 @@ public class ShopFragment extends Fragment {
         recyclerView = root.findViewById(R.id.book_list);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
-
         String baseUrl = "https://www.googleapis.com/books/v1/";
         Retrofit retrofit = new Retrofit.Builder().baseUrl(baseUrl).addConverterFactory(GsonConverterFactory.create()).build();
         service = retrofit.create(BookQuery.class);
@@ -97,7 +106,7 @@ public class ShopFragment extends Fragment {
         searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                shopViewModel.setValue(query);
+                shopViewModel.setValue("");
                 search(query);
                 return false;
             }
@@ -124,6 +133,23 @@ public class ShopFragment extends Fragment {
         searchView.setMenuItem(item);
         super.onCreateOptionsMenu(menu,inflater);
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        NavController navController = Navigation.findNavController(Objects.requireNonNull(ShopFragment.this.getActivity()), R.id.nav_host_fragment);
+        return NavigationUI.onNavDestinationSelected(item, navController)
+                || super.onOptionsItemSelected(item);
+    }
+
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
+//    }
+//    @Override
+//    public void onStop() {
+//        super.onStop();
+//        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+//    }
 
     private boolean readNetworkState(Context context) {
 
@@ -337,7 +363,88 @@ public class ShopFragment extends Fragment {
         }
         return bookData;
     }
+    public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
+
+        List<Book> books;
+        Context context;
+
+        public RecyclerViewAdapter(List<Book> books, Context context) {
+            this.books = books;
+            this.context = context;
+        }
 
 
+        @NonNull
+        @Override
+        public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+            View view;
+            LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+            view = inflater.inflate(R.layout.book_item, parent, false);
+            final MyViewHolder viewHolder = new MyViewHolder(view);
+
+            viewHolder.container.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int index = viewHolder.getAdapterPosition();
+                    System.out.println("CHOSEN  " +  books.get(index).getmTitle());
+                    mListener.onItemSelected(books.get(index).getmThumbnail(), books.get(index).getmTitle(),
+                            books.get(index).getmCategory(), books.get(index).getmRating(),
+                            books.get(index).getmAuthors(), books.get(index).getmPrice(),
+                            books.get(index).getmBuyLink(), books.get(index).getmPreviewLink(),
+                            books.get(index).getmDescription());
+                }
+            });
+            return viewHolder;
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+
+            Book book = books.get(position);
+
+            holder.tvTitle.setText(book.getmTitle());
+            holder.tvCategories.setText(book.getmCategory());
+            try {
+                holder.ratingBar.setRating(Float.parseFloat(book.getmRating()));
+            } catch (NumberFormatException e) {
+                e.printStackTrace();
+            }
+            holder.tvAuthors.setText(book.getmAuthors());
+
+            String imgProtocol = book.getmThumbnail().replace("http", "http");
+            Glide.with(context)
+                    .load(imgProtocol)
+                    .placeholder(R.drawable.placeholder_image)
+                    .into(holder.imgThumbnail);
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return books.size();
+        }
+
+        public class MyViewHolder extends RecyclerView.ViewHolder {
+
+            TextView tvTitle, tvCategories, tvAuthors;
+            ImageView imgThumbnail;
+            RatingBar ratingBar;
+            LinearLayout container;
+
+            public MyViewHolder(@NonNull View itemView) {
+                super(itemView);
+
+                tvTitle = itemView.findViewById(R.id.book_title);
+                tvCategories = itemView.findViewById(R.id.book_categories);
+                tvAuthors = itemView.findViewById(R.id.book_authors);
+                imgThumbnail = itemView.findViewById(R.id.book_image);
+                ratingBar = itemView.findViewById(R.id.book_rating);
+                container = itemView.findViewById(R.id.container);
+
+
+            }
+        }
+    }
 
 }

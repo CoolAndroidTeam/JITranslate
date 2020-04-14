@@ -3,7 +3,7 @@
     <color name="colorPrimary">#fc7f03</color>
     <color name="colorPrimaryDark">#fc5e03</color>
     <color name="colorAccent">#e3fc03</color>
-    <color name="litePrime">#8CFF8C00</color>
+    <color name="litePrime">#83d0d4</color>
     <color name="gray">#D4D3D0</color>
     <color name="gold">#FCD94D </color>
 </resources>
