@@ -7,9 +7,14 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 import com.coolcode.jittranslate.fragments.bookview.BookViewFragment;
+import com.coolcode.jittranslate.utils.Constants;
 
 public class MainActivity extends AppCompatActivity implements EventListenerActivity {
 
@@ -19,6 +24,8 @@ public class MainActivity extends AppCompatActivity implements EventListenerActi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        setDisplayMetrics();
 
         if (savedInstanceState == null) {
             fragmentManager = getSupportFragmentManager();
@@ -39,5 +46,13 @@ public class MainActivity extends AppCompatActivity implements EventListenerActi
     @Override
     public void onWordSelected(String word) {
 
+    }
+
+    private void setDisplayMetrics() {
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        Constants.screenHeight = metrics.heightPixels;
+        Constants.screenWidth = metrics.widthPixels;
+        Constants.currentTextSize = getResources().getDimensionPixelSize(R.dimen.text_standart);
     }
 }

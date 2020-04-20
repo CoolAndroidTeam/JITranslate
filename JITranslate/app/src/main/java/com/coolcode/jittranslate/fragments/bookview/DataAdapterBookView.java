@@ -33,11 +33,13 @@ import java.util.Map;
 public class DataAdapterBookView extends RecyclerView.Adapter<BookViewHolder> {
     private BookViewFragment fragment;
     private ArrayList<Element> bookPages;
+    private ArrayList<String> pages;
     private Map<String, Binary> binaries;
 
-    public DataAdapterBookView(Fragment fragment, ArrayList<Element> sections) {
+    public DataAdapterBookView(Fragment fragment, ArrayList<Element> sections, ArrayList<String> pages) {
         this.fragment = (BookViewFragment)fragment;
         this.bookPages = sections;
+        this.pages = pages;
         this.binaries = this.fragment.getFb2Book().getBook().getBinaries();
     }
 
@@ -52,24 +54,30 @@ public class DataAdapterBookView extends RecyclerView.Adapter<BookViewHolder> {
     public void onBindViewHolder(@NonNull BookViewHolder holder, int position) {
         ImageView imageView = holder.getImageView();
         TextView pageView = holder.getPageTextView();
-        if (bookPages.get(position).getText() != null) {
-            String text = bookPages.get(position).getText();
-            pageView.setText(text);
-            imageView.setImageDrawable(null);
-        } else {
-            pageView.setText("");
-            P pElem = (P) bookPages.get(position);
-            ArrayList<Image> pImage = pElem.getImages();
+//        if (bookPages.get(position).getText() != null) {
+//            String text = bookPages.get(position).getText();
+//            pageView.setText(text);
+//            imageView.setImageDrawable(null);
+//        } else {
+//            pageView.setText("");
+//            P pElem = (P) bookPages.get(position);
+//            ArrayList<Image> pImage = pElem.getImages();
+//
+//            BitmapCreator bmCreator = new BitmapCreator(this.binaries.get(pImage.get(pImage.size() - 1).getValue().substring(1)).getBinary());
+//
+//            DisplayMetrics metrics = new DisplayMetrics();
+//            this.fragment.getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+//            Bitmap scaledBitmap = bmCreator.createResizedBitmap(metrics);
+//            imageView.setImageBitmap(scaledBitmap);
+//        }
+        pageView.setText(pages.get(position));
 
-            BitmapCreator bmCreator = new BitmapCreator(this.binaries.get(pImage.get(pImage.size() - 1).getValue().substring(1)).getBinary());
 
-            DisplayMetrics metrics = new DisplayMetrics();
-            this.fragment.getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-            Bitmap scaledBitmap = bmCreator.createResizedBitmap(metrics);
-            imageView.setImageBitmap(scaledBitmap);
-        }
+
         TextView pageNumView = holder.getPageNumView();
         pageNumView.setText(String.valueOf(position+1));
+        Log.d("string", String.valueOf(pageNumView.getMaxWidth()));
+        Log.d("string", String.valueOf(pageNumView.getMaxLines()));
 
 
     }
