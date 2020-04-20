@@ -3,6 +3,7 @@ package com.coolcode.jittranslate.fragments.bookview;
 import com.coolcode.jittranslate.utils.Constants;
 import com.coolcode.jittranslate.utils.FB2BookElements;
 import com.coolcode.jittranslate.utils.FileReader;
+import com.coolcode.jittranslate.utils.TextOrPicture;
 import com.kursx.parser.fb2.Element;
 import com.kursx.parser.fb2.EmptyLine;
 import com.kursx.parser.fb2.FictionBook;
@@ -46,8 +47,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 public class BookViewFragment extends Fragment {
     private EventListenerActivity activity;
-    private ArrayList<Element> data;
-    private ArrayList<String> data_new;
+    private ArrayList<TextOrPicture> data;
     private FB2BookElements fb2Book;
 
     public void setEventListenerActivity(EventListenerActivity activity) {
@@ -68,36 +68,12 @@ public class BookViewFragment extends Fragment {
         if (data == null) {
             FileReader fileReader = new FileReader(this.getActivity().getAssets(), getActivity().getCacheDir(),Constants.testFb2File);
             readBook(fileReader.createFile());
-            data = this.fb2Book.getAllPages();
-            data_new = this.fb2Book.getPages();
-            //TextView pageTextView = itemView.findViewById(R.id.page_text);
+            data = this.fb2Book.getPages();
         }
-        adapter = new DataAdapterBookView(this, data, data_new);
+        adapter = new DataAdapterBookView(this, data);
         recyclerView.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-
-//        DisplayMetrics metrics = new DisplayMetrics();
-//        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-//
-//        int height = metrics.heightPixels;
-//        int width = metrics.widthPixels;
-//        double pages = this.fb2Book.getTextSize() / width;
-//        Log.d("size", String.valueOf(mainView.getWidth()));
-//        Log.d("size", String.valueOf(mainView.getMeasuredWidth()));
-//        Log.d("size", String.valueOf(height));
-//        Log.d("size", String.valueOf(width));
-//
-//        Rect bounds = new Rect();
-//        Paint paint = new Paint();
-//        float scaledSizeInPixels = getResources().getDimensionPixelSize(R.dimen.text_standart);
-//        paint.setTextSize(scaledSizeInPixels);
-//        paint.getTextBounds(str, 0, str.length(), bounds);
-//        final int numLines = (int) Math.ceil((float) bounds.width() / width);
-//        final int numLines_1 = (int) Math.ceil(height/ (float) bounds.height());
-//        Log.d("size", String.valueOf(numLines_1));
-//        Log.d("size", String.valueOf(numLines));
-//        Log.d("size", String.valueOf(scaledSizeInPixels));
 
         return mainView;
     }
