@@ -8,6 +8,7 @@ import com.kursx.parser.fb2.Element;
 import com.kursx.parser.fb2.EmptyLine;
 import com.kursx.parser.fb2.FictionBook;
 
+import android.content.Context;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Build;
@@ -23,6 +24,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -45,6 +47,8 @@ import java.util.ArrayList;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import me.zhanghai.android.fastscroll.FastScrollerBuilder;
+
 public class BookViewFragment extends Fragment {
     private EventListenerActivity activity;
     private ArrayList<TextOrPicture> data;
@@ -64,6 +68,11 @@ public class BookViewFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mainView = inflater.inflate(R.layout.bookview, container, false);
         RecyclerView recyclerView = mainView.findViewById(R.id.pages_list);
+        FastScrollerBuilder fastScrollerBuilder = new FastScrollerBuilder(recyclerView);
+        Context context = mainView.getContext();
+        fastScrollerBuilder.setTrackDrawable(AppCompatResources.getDrawable(context, R.drawable.line_drawable));
+        fastScrollerBuilder.setThumbDrawable(AppCompatResources.getDrawable(context, R.drawable.thumb));
+        fastScrollerBuilder.build();
         DataAdapterBookView adapter;
         if (data == null) {
             FileReader fileReader = new FileReader(this.getActivity().getAssets(), getActivity().getCacheDir(),Constants.testFb2File);
