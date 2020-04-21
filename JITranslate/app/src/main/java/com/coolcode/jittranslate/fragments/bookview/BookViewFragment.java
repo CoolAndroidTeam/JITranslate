@@ -4,22 +4,14 @@ import com.coolcode.jittranslate.utils.Constants;
 import com.coolcode.jittranslate.utils.FB2BookElements;
 import com.coolcode.jittranslate.utils.FileReader;
 import com.coolcode.jittranslate.utils.TextOrPicture;
-import com.kursx.parser.fb2.Element;
-import com.kursx.parser.fb2.EmptyLine;
 import com.kursx.parser.fb2.FictionBook;
 
 import android.content.Context;
-import android.graphics.Paint;
-import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,18 +23,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.coolcode.jittranslate.EventListenerActivity;
 import com.coolcode.jittranslate.R;
-import com.kursx.parser.fb2.Image;
-import com.kursx.parser.fb2.P;
-import com.kursx.parser.fb2.Section;
 
-import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -68,11 +53,7 @@ public class BookViewFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mainView = inflater.inflate(R.layout.bookview, container, false);
         RecyclerView recyclerView = mainView.findViewById(R.id.pages_list);
-        FastScrollerBuilder fastScrollerBuilder = new FastScrollerBuilder(recyclerView);
-        Context context = mainView.getContext();
-        fastScrollerBuilder.setTrackDrawable(AppCompatResources.getDrawable(context, R.drawable.line_drawable));
-        fastScrollerBuilder.setThumbDrawable(AppCompatResources.getDrawable(context, R.drawable.thumb));
-        fastScrollerBuilder.build();
+        setFastScroll(mainView, recyclerView);
         DataAdapterBookView adapter;
         if (data == null) {
             FileReader fileReader = new FileReader(this.getActivity().getAssets(), getActivity().getCacheDir(),Constants.testFb2File);
@@ -96,6 +77,14 @@ public class BookViewFragment extends Fragment {
         } catch (ParserConfigurationException | IOException | SAXException e) {
             e.printStackTrace();
         }
+    }
+
+    private void setFastScroll(View mainView, RecyclerView recyclerView) {
+        FastScrollerBuilder fastScrollerBuilder = new FastScrollerBuilder(recyclerView);
+        Context context = mainView.getContext();
+        fastScrollerBuilder.setTrackDrawable(AppCompatResources.getDrawable(context, R.drawable.fs_background));
+        fastScrollerBuilder.setThumbDrawable(AppCompatResources.getDrawable(context, R.drawable.fs_thumb));
+        fastScrollerBuilder.build();
     }
 
     public FB2BookElements getFb2Book() {
