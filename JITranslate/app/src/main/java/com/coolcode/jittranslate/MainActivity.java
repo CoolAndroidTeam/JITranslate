@@ -53,6 +53,6 @@ public class MainActivity extends AppCompatActivity implements EventListenerActi
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         Constants.screenHeight = metrics.heightPixels;
         Constants.screenWidth = metrics.widthPixels;
-        Constants.currentTextSize = getResources().getDimensionPixelSize(R.dimen.text_standart);
+        Constants.currentTextSize = getResources().getDimensionPixelSize(R.dimen.font_text_standart);
     }
 }

@@ -82,8 +82,9 @@ public class BookViewFragment extends Fragment {
     private void setFastScroll(View mainView, RecyclerView recyclerView) {
         FastScrollerBuilder fastScrollerBuilder = new FastScrollerBuilder(recyclerView);
         Context context = mainView.getContext();
-        fastScrollerBuilder.setTrackDrawable(AppCompatResources.getDrawable(context, R.drawable.fs_background));
+        fastScrollerBuilder.setTrackDrawable(AppCompatResources.getDrawable(context, R.drawable.fs_thumb_background));
         fastScrollerBuilder.setThumbDrawable(AppCompatResources.getDrawable(context, R.drawable.fs_thumb));
+        fastScrollerBuilder.setPadding(10, 0, 0, 0);
         fastScrollerBuilder.build();
     }
 

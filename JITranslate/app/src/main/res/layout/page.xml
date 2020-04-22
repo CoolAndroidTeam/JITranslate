@@ -2,36 +2,44 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:orientation="horizontal"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/page_text"
+    <RelativeLayout
+        android:layout_toStartOf="@+id/page_number"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:gravity="start"
-        android:background="@android:color/transparent"
-        android:fontFamily="@font/fasthand_regular"
-        android:textSize="@dimen/text_standart"
-        tools:text="asdasd"
-        />
-    <ImageView
-        android:id="@+id/page_pic"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/page_text"
-        tools:src="@drawable/bk"
-        />
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/page_text"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:background="@android:color/transparent"
+            style="@style/TextAppearance.JITranslate.Body1"
+            tools:text="Some interesting texxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxt"
+            />
+
+        <ImageView
+            android:id="@+id/page_pic"
+            android:layout_below="@+id/page_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:src="@drawable/bk"
+            />
+    </RelativeLayout>
+
     <TextView
+        android:layout_gravity="end"
         android:id="@+id/page_number"
+        android:paddingLeft="@dimen/page_number_padding"
+        android:layout_alignParentRight="true"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:layout_below="@id/page_pic"
-        android:layout_alignParentEnd="true"
         android:gravity="end|bottom"
         android:background="@android:color/transparent"
-        android:fontFamily="@font/fasthand_regular"
-        android:text="1"
+        style="@style/TextAppearance.JITranslate.PageNumber"
+        tools:text="1203"
         />
-
 
 </RelativeLayout>
