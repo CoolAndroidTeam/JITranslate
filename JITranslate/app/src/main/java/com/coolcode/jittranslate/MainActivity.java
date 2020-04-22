@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -13,17 +14,20 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
+import com.coolcode.jittranslate.database.DataBaseCreator;
 import com.coolcode.jittranslate.fragments.bookview.BookViewFragment;
 import com.coolcode.jittranslate.utils.Constants;
 
-public class MainActivity extends AppCompatActivity implements EventListenerActivity {
+public class MainActivity extends AppCompatActivity implements EventListenerActivity, DataBaseActivity {
 
     private FragmentManager fragmentManager;
+    private DataBaseCreator dataBaseCreator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        dataBaseCreator = new DataBaseCreator(getBaseContext());
 
         setDisplayMetrics();
 
@@ -54,5 +58,10 @@ public class MainActivity extends AppCompatActivity implements EventListenerActi
         Constants.screenHeight = metrics.heightPixels;
         Constants.screenWidth = metrics.widthPixels;
         Constants.currentTextSize = getResources().getDimensionPixelSize(R.dimen.font_text_standart);
+    }
+
+    @Override
+    public SQLiteDatabase getDatabase() {
+        return this.dataBaseCreator.getWritableDatabase();
     }
 }

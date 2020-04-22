@@ -1,5 +1,7 @@
 package com.coolcode.jittranslate.fragments.bookview;
 
+import com.coolcode.jittranslate.DataBaseActivity;
+import com.coolcode.jittranslate.MainActivity;
 import com.coolcode.jittranslate.utils.Constants;
 import com.coolcode.jittranslate.utils.FB2BookElements;
 import com.coolcode.jittranslate.utils.FileReader;
@@ -7,6 +9,7 @@ import com.coolcode.jittranslate.utils.TextOrPicture;
 import com.kursx.parser.fb2.FictionBook;
 
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -66,6 +69,14 @@ public class BookViewFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
 
         return mainView;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        DataBaseActivity activity = (DataBaseActivity) getActivity();
+        SQLiteDatabase database = activity.getDatabase();
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
