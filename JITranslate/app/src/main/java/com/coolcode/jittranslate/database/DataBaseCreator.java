@@ -14,7 +14,7 @@ public class DataBaseCreator extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         Log.d("data_base", "Created Database");
-        db.execSQL("create table if not exists books (id integer primary key autoincrement, name text, author text, page integer);");
+        db.execSQL("CREATE TABLE IF NOT EXISTS books (id integer PRIMARY KEY AUTOINCREMENT, name text, author text, page integer);");
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.coolcode.jittranslate.fragments.bookview;
 
 import com.coolcode.jittranslate.DataBaseActivity;
 import com.coolcode.jittranslate.MainActivity;
+import com.coolcode.jittranslate.entities.Book;
 import com.coolcode.jittranslate.utils.Constants;
 import com.coolcode.jittranslate.utils.FB2BookElements;
 import com.coolcode.jittranslate.utils.FileReader;
@@ -12,6 +13,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +43,8 @@ public class BookViewFragment extends Fragment {
     private EventListenerActivity activity;
     private ArrayList<TextOrPicture> data;
     private FB2BookElements fb2Book;
+    private RecyclerView recyclerView;
+    private Book book = new Book(Constants.testBookName, Constants.testBookAuthor);
 
     public void setEventListenerActivity(EventListenerActivity activity) {
         this.activity = activity;
@@ -55,7 +59,7 @@ public class BookViewFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mainView = inflater.inflate(R.layout.bookview, container, false);
-        RecyclerView recyclerView = mainView.findViewById(R.id.pages_list);
+        recyclerView = mainView.findViewById(R.id.pages_list);
         setFastScroll(mainView, recyclerView);
         DataAdapterBookView adapter;
         if (data == null) {
@@ -75,7 +79,10 @@ public class BookViewFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         DataBaseActivity activity = (DataBaseActivity) getActivity();
-        SQLiteDatabase database = activity.getDatabase();
+        final View child = recyclerView.getFocusedChild();
+        int pos = recyclerView.getChildAdapterPosition(child);
+        Log.d("position", String.valueOf(pos));
+        this.book.savePage(pos);
 
     }
 

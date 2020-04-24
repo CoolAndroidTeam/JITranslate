@@ -15,19 +15,20 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.coolcode.jittranslate.database.DataBaseCreator;
+import com.coolcode.jittranslate.database.JITDataBase;
 import com.coolcode.jittranslate.fragments.bookview.BookViewFragment;
 import com.coolcode.jittranslate.utils.Constants;
 
 public class MainActivity extends AppCompatActivity implements EventListenerActivity, DataBaseActivity {
 
     private FragmentManager fragmentManager;
-    private DataBaseCreator dataBaseCreator;
+    private JITDataBase dataBase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        dataBaseCreator = new DataBaseCreator(getBaseContext());
+        dataBase = new JITDataBase(getBaseContext());
 
         setDisplayMetrics();
 
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements EventListenerActi
     }
 
     @Override
-    public SQLiteDatabase getDatabase() {
-        return this.dataBaseCreator.getWritableDatabase();
+    public JITDataBase getDatabase() {
+        return this.dataBase;
     }
 }
