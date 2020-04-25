@@ -40,6 +40,7 @@ import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.coolcode.jittranslate.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -219,6 +220,7 @@ public class ShopFragment extends Fragment {
 
             @Override
             public void onFailure(@NonNull Call<JsonObject> call, @NonNull Throwable t) {
+                t.printStackTrace();
                 shopViewModel.setValue("onFailure");
             }
         });

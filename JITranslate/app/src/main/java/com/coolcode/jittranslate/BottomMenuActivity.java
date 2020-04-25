@@ -1,17 +1,8 @@
 package com.coolcode.jittranslate;
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.SearchView;
-
-import com.coolcode.jittranslate.ui.shop.BookDetails;
-import com.coolcode.jittranslate.ui.shop.ShopFragment;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.MenuItemCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
@@ -19,13 +10,18 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.coolcode.jittranslate.ui.shop.BookDetails;
+import com.coolcode.jittranslate.ui.shop.ShopFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
+
 public class BottomMenuActivity extends AppCompatActivity implements ShopFragment.OnItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bottom_menu);
-        BottomNavigationView navView = findViewById(R.id.nav_view);
+        NavigationView navView = findViewById(R.id.nav_view);
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_library, R.id.navigation_shop, R.id.navigation_study,R.id.navigation_forum)
