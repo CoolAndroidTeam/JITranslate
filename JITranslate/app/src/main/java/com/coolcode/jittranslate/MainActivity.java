@@ -11,7 +11,7 @@ import android.util.Log;
 
 import com.coolcode.jittranslate.fragments.bookview.BookViewFragment;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements EventListenerActivity {
 
     private FragmentManager fragmentManager;
 
@@ -29,15 +29,15 @@ public class MainActivity extends AppCompatActivity {
         Log.d("activity", "onCreate");
     }
 
-//    @Override
-//    public void onAttachFragment(@NonNull Fragment fragment) {
-//        if (fragment instanceof BookViewFragment) {
-//            ((BookViewFragment) fragment).setEventListenerActivity(this);
-//        }
-//    }
-//
-//    @Override
-//    public void onWordSelected(String word) {
-//
-//    }
+    @Override
+    public void onAttachFragment(@NonNull Fragment fragment) {
+        if (fragment instanceof BookViewFragment) {
+            ((BookViewFragment) fragment).setEventListenerActivity(this);
+        }
+    }
+
+    @Override
+    public void onWordSelected(String word) {
+
+    }
 }
