@@ -1,12 +1,13 @@
 package com.coolcode.jittranslate.entities;
 
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
+import android.util.Log;
 
 import com.coolcode.jittranslate.database.JITDataBase;
 
-import java.sql.PreparedStatement;
 
 public class Book {
 
@@ -21,27 +22,40 @@ public class Book {
     }
 
     private int checkBookId() throws Exception {
-        this.page = page;
-        SQLiteDatabase dataBase = JITDataBase.getDb();
-        String[] whereArgs = new String[] {
+        SQLiteDatabase dataBase = JITDataBase.getDbRead();
+        String[] whereArgs = new String[]{
                 this.author,
                 this.name
         };
-        String queryString =
-                "SELECT id FROM books WHERE author = ? AND name = ? ";
-        Cursor rows = dataBase.rawQuery(queryString, whereArgs);
-        if (rows.getCount() == 0) {
-            rows.close();
-            throw new Exception("empty book query");
-        } else {
-            return rows.getInt(0);
+        int id = -1;
+        try {
+            dataBase.beginTransaction();
+            String queryString =
+                    "SELECT id FROM books WHERE author = ? AND name = ? ";
+            Cursor rows = dataBase.rawQuery(queryString, whereArgs);
+            if (rows.getCount() == 0) {
+                rows.close();
+                throw new Exception("empty book query");
+            } else {
+                rows.moveToNext();
+                id = rows.getInt(0);
+                rows.close();
+                dataBase.setTransactionSuccessful();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            dataBase.endTransaction();
         }
+        return id;
     }
 
     public void savePage(int page) {
+        System.out.println(page);
         this.page = page;
+        SQLiteDatabase dataBase = JITDataBase.getDbWrite();
         try {
-            SQLiteDatabase dataBase = JITDataBase.getDb();
+            dataBase.beginTransaction();
             int id = this.checkBookId();
             String[] updateArgs = new String[] {
                     this.page.toString(),
@@ -50,26 +64,40 @@ public class Book {
             String updateString =
                     "UPDATE books SET page = ? WHERE id = ?";
             dataBase.execSQL(updateString, updateArgs);
-
+            dataBase.setTransactionSuccessful();
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            dataBase.endTransaction();
         }
     }
 
     public int getPage() throws Exception {
-        SQLiteDatabase dataBase = JITDataBase.getDb();
-        String[] whereArgs = new String[] {
+        SQLiteDatabase dataBase = JITDataBase.getDbRead();
+        String[] whereArgs = new String[]{
                 this.author,
                 this.name
         };
-        String queryString =
-                "SELECT page FROM books WHERE author = ? AND name = ? ";
-        Cursor rows = dataBase.rawQuery(queryString, whereArgs);
-        if (rows.getCount() == 0) {
-            rows.close();
-            throw new Exception("empty book query");
-        } else {
-            return rows.getInt(0);
+        int page = 0;
+        try {
+            dataBase.beginTransaction();
+            String queryString = "SELECT page FROM books WHERE author = ? AND name = ?";
+            Cursor rows = dataBase.rawQuery(queryString, whereArgs);
+            if (rows.getCount() == 0) {
+                rows.close();
+                throw new Exception("empty book query");
+            } else {
+                rows.moveToNext();
+                page = rows.getInt(0);
+                rows.close();
+                dataBase.setTransactionSuccessful();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            dataBase.endTransaction();
         }
+        return page;
     }
+
 }

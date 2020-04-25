@@ -8,7 +8,7 @@ import android.util.Log;
 public class DataBaseCreator extends SQLiteOpenHelper {
 
     public DataBaseCreator(Context context) {
-        super(context, "DatabaseName.db", null, 1);
+        super(context, "JITDB", null, 1);
     }
 
     @Override
@@ -21,5 +21,4 @@ public class DataBaseCreator extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
-
 }

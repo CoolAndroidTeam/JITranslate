@@ -43,7 +43,6 @@ public class BookViewFragment extends Fragment {
     private EventListenerActivity activity;
     private ArrayList<TextOrPicture> data;
     private FB2BookElements fb2Book;
-    private RecyclerView recyclerView;
     private Book book = new Book(Constants.testBookName, Constants.testBookAuthor);
 
     public void setEventListenerActivity(EventListenerActivity activity) {
@@ -59,8 +58,9 @@ public class BookViewFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View mainView = inflater.inflate(R.layout.bookview, container, false);
-        recyclerView = mainView.findViewById(R.id.pages_list);
+        RecyclerView recyclerView = mainView.findViewById(R.id.pages_list);
         setFastScroll(mainView, recyclerView);
+        addScrollListener(recyclerView);
         DataAdapterBookView adapter;
         if (data == null) {
             FileReader fileReader = new FileReader(this.getActivity().getAssets(), getActivity().getCacheDir(),Constants.testFb2File);
@@ -71,20 +71,15 @@ public class BookViewFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
-
+        try {
+            recyclerView.scrollToPosition(this.book.getPage()-1);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
         return mainView;
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        DataBaseActivity activity = (DataBaseActivity) getActivity();
-        final View child = recyclerView.getFocusedChild();
-        int pos = recyclerView.getChildAdapterPosition(child);
-        Log.d("position", String.valueOf(pos));
-        this.book.savePage(pos);
-
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void readBook(File file) {
@@ -95,6 +90,23 @@ public class BookViewFragment extends Fragment {
         } catch (ParserConfigurationException | IOException | SAXException e) {
             e.printStackTrace();
         }
+    }
+
+    private void addScrollListener(RecyclerView recyclerView) {
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                if (newState == 0) {
+                    LinearLayoutManager linearLayoutManager = (LinearLayoutManager)recyclerView.getLayoutManager();
+                    System.out.println("here");
+                    int pos = linearLayoutManager.findFirstVisibleItemPosition();
+                    System.out.println("here");
+                    Log.d("pos", String.valueOf(pos));
+                    book.savePage(pos+1);
+                }
+            }
+        });
     }
 
     private void setFastScroll(View mainView, RecyclerView recyclerView) {

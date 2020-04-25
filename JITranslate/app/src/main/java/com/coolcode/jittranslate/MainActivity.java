@@ -49,6 +49,12 @@ public class MainActivity extends AppCompatActivity implements EventListenerActi
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("activity", "onDestroy");
+    }
+
+    @Override
     public void onWordSelected(String word) {
 
     }
