@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">JITranslate</string>
+    <string name="title_activity_bottom_menu">BottomMenuActivity</string>
+    <string name="library">library</string>
+    <string name="shop">shop</string>
+    <string name="study">study</string>
+    <string name="forum">forum</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
