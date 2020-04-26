@@ -1,44 +1,115 @@
 package com.coolcode.jittranslate;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
-import android.database.sqlite.SQLiteDatabase;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 
-import com.coolcode.jittranslate.database.DataBaseCreator;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
+
 import com.coolcode.jittranslate.database.JITDataBase;
-import com.coolcode.jittranslate.fragments.bookview.BookViewFragment;
+import com.coolcode.jittranslate.ui.bookview.BookViewFragment;
+import com.coolcode.jittranslate.ui.bookview.BookViewListener;
+import com.coolcode.jittranslate.ui.clientslibrary.ClientBooksListener;
+import com.coolcode.jittranslate.ui.shop.BookDetails;
+import com.coolcode.jittranslate.ui.shop.ShopFragment;
 import com.coolcode.jittranslate.utils.Constants;
+import com.coolcode.jittranslate.viewentities.ClientBook;
+import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity implements EventListenerActivity, DataBaseActivity {
+
+public class MainActivity extends AppCompatActivity implements BookViewListener, ClientBooksListener, ShopFragment.OnItemSelectedListener {
 
     private FragmentManager fragmentManager;
-    private JITDataBase dataBase;
+    private NavController navController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        dataBase = new JITDataBase(getBaseContext());
 
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_bottom_menu);
+        NavigationView navView = findViewById(R.id.nav_view);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed(); // Implemented by activity
+            }
+        });
+
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.navigation_library, R.id.navigation_shop, R.id.navigation_study,R.id.navigation_forum)
+                .build();
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        NavigationUI.setupWithNavController(navView, navController);
+
+        new JITDataBase(getBaseContext());
         setDisplayMetrics();
 
-        if (savedInstanceState == null) {
-            fragmentManager = getSupportFragmentManager();
-            FragmentTransaction transaction = fragmentManager.beginTransaction();
-            transaction.add(R.id.fragment_container, new BookViewFragment(), "tag");
-            transaction.commit();
-        }
+//        if (savedInstanceState == null) {
+//            fragmentManager = getSupportFragmentManager();
+//            FragmentTransaction transaction = fragmentManager.beginTransaction();
+//            transaction.add(R.id.fragment_container, new BookViewFragment(), "tag");
+//            transaction.commit();
+//        }
         Log.d("activity", "onCreate");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        MenuItem search_item = menu.findItem(R.id.action_search);
+        search_item.setVisible(false);
+        return true;
+    }
+
+    @SuppressLint("WrongConstant")
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        if (itemId == R.id.menu_open) {
+            DrawerLayout navDrawer = findViewById(R.id.drawer_layout);
+            if(!navDrawer.isDrawerOpen(GravityCompat.END)) navDrawer.openDrawer(GravityCompat.END);
+            else navDrawer.closeDrawer(GravityCompat.START);
+        }
+        return true;
+    }
+
+    @Override
+    public void onItemSelected(String book_thumbnail, String book_title, String book_category,
+                               String book_rating, String book_author, String book_price,
+                               String book_buy, String book_preview, String book_description) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment currentFragment = fragmentManager.findFragmentById(R.id.fragment_container);
+        System.out.println("FRAGMENT FROM ACTIVITY  " +  currentFragment);
+//        if (currentFragment instanceof ShopFragment) {
+        System.out.println("CHOSEN FROM ACTIVITY  " + book_title);
+        fragmentManager.beginTransaction().replace(R.id.shop_container, BookDetails.newInstance(book_thumbnail,
+                book_title, book_category, book_rating, book_author, book_price, book_buy, book_preview,
+                book_description))
+                .addToBackStack(null)
+                .commit();
+//        }
+
+
     }
 
     @Override
@@ -67,8 +138,14 @@ public class MainActivity extends AppCompatActivity implements EventListenerActi
         Constants.currentTextSize = getResources().getDimensionPixelSize(R.dimen.font_text_standart);
     }
 
+    public NavController getNavController() {
+        return navController;
+    }
+
     @Override
-    public JITDataBase getDatabase() {
-        return this.dataBase;
+    public void onBookSelected(String name, String author) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("data", new ClientBook(name, author));
+        navController.navigate(R.id.navigation_bookview, bundle);
     }
 }

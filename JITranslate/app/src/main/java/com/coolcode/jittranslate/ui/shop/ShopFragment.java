@@ -132,7 +132,7 @@ public class ShopFragment extends Fragment {
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        NavController navController = Navigation.findNavController(Objects.requireNonNull(ShopFragment.this.getActivity()), R.id.nav_host_fragment);
+        NavController navController = Navigation.findNavController(ShopFragment.this.requireActivity(), R.id.nav_host_fragment);
         return NavigationUI.onNavDestinationSelected(item, navController)
                 || super.onOptionsItemSelected(item);
     }

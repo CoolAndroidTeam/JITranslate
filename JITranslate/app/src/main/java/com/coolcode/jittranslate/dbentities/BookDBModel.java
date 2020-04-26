@@ -1,24 +1,57 @@
-package com.coolcode.jittranslate.entities;
+package com.coolcode.jittranslate.dbentities;
 
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteStatement;
 import android.util.Log;
 
 import com.coolcode.jittranslate.database.JITDataBase;
 
+import java.util.ArrayList;
 
-public class Book {
+
+public class BookDBModel {
 
     private Integer id = 0;
     private String name;
     private String author;
     private Integer page = 0;
 
-    public Book(String name, String author) {
+    public BookDBModel(String name, String author) {
         this.name = name;
         this.author = author;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public static ArrayList<BookDBModel> getAllBooks() {
+        SQLiteDatabase dataBase = JITDataBase.getDbRead();
+        ArrayList<BookDBModel> allBooks = new ArrayList<>();
+        try {
+            dataBase.beginTransaction();
+            String queryString =
+                    "SELECT name, author FROM books";
+            Cursor rows = dataBase.rawQuery(queryString, null);
+            Log.d("data_base", String.valueOf(rows.getCount()));
+            if (rows.getCount() != 0) {
+                while (rows.moveToNext()) {
+                    allBooks.add(new BookDBModel(rows.getString(0), rows.getString(1)));
+                }
+            }
+            rows.close();
+            dataBase.setTransactionSuccessful();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            dataBase.endTransaction();
+        }
+        return allBooks;
     }
 
     private int checkBookId() throws Exception {

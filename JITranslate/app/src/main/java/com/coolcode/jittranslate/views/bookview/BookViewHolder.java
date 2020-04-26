@@ -1,4 +1,4 @@
-package com.coolcode.jittranslate.fragments.bookview;
+package com.coolcode.jittranslate.views.bookview;
 
 import android.view.View;
 import android.widget.ImageView;

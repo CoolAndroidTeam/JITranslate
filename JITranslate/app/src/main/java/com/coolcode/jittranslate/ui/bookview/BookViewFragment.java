@@ -1,32 +1,39 @@
-package com.coolcode.jittranslate.fragments.bookview;
+package com.coolcode.jittranslate.ui.bookview;
 
-import com.coolcode.jittranslate.DataBaseActivity;
 import com.coolcode.jittranslate.MainActivity;
-import com.coolcode.jittranslate.entities.Book;
+import com.coolcode.jittranslate.dbentities.BookDBModel;
 import com.coolcode.jittranslate.utils.Constants;
 import com.coolcode.jittranslate.utils.FB2BookElements;
 import com.coolcode.jittranslate.utils.FileReader;
 import com.coolcode.jittranslate.utils.TextOrPicture;
+import com.coolcode.jittranslate.viewentities.ClientBook;
+import com.coolcode.jittranslate.views.bookview.DataAdapterBookView;
 import com.kursx.parser.fb2.FictionBook;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.coolcode.jittranslate.EventListenerActivity;
 import com.coolcode.jittranslate.R;
 
 import org.xml.sax.SAXException;
@@ -40,23 +47,29 @@ import javax.xml.parsers.ParserConfigurationException;
 import me.zhanghai.android.fastscroll.FastScrollerBuilder;
 
 public class BookViewFragment extends Fragment {
-    private EventListenerActivity activity;
+    private BookViewListener activity;
     private ArrayList<TextOrPicture> data;
     private FB2BookElements fb2Book;
-    private Book book = new Book(Constants.testBookName, Constants.testBookAuthor);
+    private ClientBook book = new ClientBook(Constants.testBookName, Constants.testBookAuthor);
+    private BookDBModel bookDBModel ;
 
-    public void setEventListenerActivity(EventListenerActivity activity) {
+    public void setEventListenerActivity(BookViewListener activity) {
         this.activity = activity;
     }
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Bundle bundle = this.getArguments();
+        this.book = (ClientBook) bundle.getSerializable("data");
+        Log.d("book", this.book.getAuthor());
+        this.createBookDB();
         View mainView = inflater.inflate(R.layout.bookview, container, false);
         RecyclerView recyclerView = mainView.findViewById(R.id.pages_list);
         setFastScroll(mainView, recyclerView);
@@ -71,14 +84,27 @@ public class BookViewFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
+
+        ActionBar bar = ((AppCompatActivity) getActivity()).getSupportActionBar();
+        bar.setTitle(book.getName());
+
         try {
-            recyclerView.scrollToPosition(this.book.getPage()-1);
+            recyclerView.scrollToPosition(this.bookDBModel.getPage()-1);
         }
         catch (Exception e) {
             e.printStackTrace();
         }
         return mainView;
     }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        MenuItem item = menu.findItem(R.id.menu_open);
+        item.setVisible(false);
+        super.onCreateOptionsMenu(menu,inflater);
+    }
+
+
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -97,13 +123,14 @@ public class BookViewFragment extends Fragment {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
+                ActionBar bar = ((AppCompatActivity) getActivity()).getSupportActionBar();
                 if (newState == 0) {
                     LinearLayoutManager linearLayoutManager = (LinearLayoutManager)recyclerView.getLayoutManager();
                     System.out.println("here");
                     int pos = linearLayoutManager.findFirstVisibleItemPosition();
                     System.out.println("here");
                     Log.d("pos", String.valueOf(pos));
-                    book.savePage(pos+1);
+                    bookDBModel.savePage(pos+1);
                 }
             }
         });
@@ -122,4 +149,11 @@ public class BookViewFragment extends Fragment {
         return this.fb2Book;
     }
 
+    private void createBookDB() {
+        this.bookDBModel = new BookDBModel(this.book.getName(), this.book.getAuthor());
+    }
+
+    public BookViewListener getBookViewistenerActivity() {
+        return (BookViewListener)getActivity();
+    }
 }

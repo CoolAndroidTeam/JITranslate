@@ -1,12 +1,7 @@
-package com.coolcode.jittranslate.fragments.bookview;
+package com.coolcode.jittranslate.views.bookview;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
-import android.graphics.Paint;
-import android.util.Base64;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,14 +13,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.coolcode.jittranslate.R;
+import com.coolcode.jittranslate.ui.bookview.BookViewFragment;
 import com.coolcode.jittranslate.utils.BitmapCreator;
 import com.coolcode.jittranslate.utils.TextOrPicture;
 import com.kursx.parser.fb2.Binary;
-import com.kursx.parser.fb2.EmptyLine;
-import com.kursx.parser.fb2.FictionBook;
-import com.kursx.parser.fb2.Image;
-import com.kursx.parser.fb2.P;
-import com.kursx.parser.fb2.Section;
 
 import java.util.ArrayList;
 import java.util.Map;
