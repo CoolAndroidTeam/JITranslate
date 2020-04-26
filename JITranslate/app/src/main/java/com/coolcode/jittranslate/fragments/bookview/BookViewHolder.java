@@ -1,6 +1,7 @@
 package com.coolcode.jittranslate.fragments.bookview;
 
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,14 +13,25 @@ import com.coolcode.jittranslate.R;
 public class BookViewHolder extends RecyclerView.ViewHolder {
 
     private TextView pageTextView;
+    private ImageView imageView;
+    private TextView pageNumView;
 
     public BookViewHolder(@NonNull View itemView, Fragment fragment) {
         super(itemView);
         pageTextView = itemView.findViewById(R.id.page_text);
+        imageView = itemView.findViewById(R.id.page_pic);
+        pageNumView = itemView.findViewById(R.id.page_number);
     }
 
-    public TextView getPageView() {
+    public TextView getPageTextView() {
         return pageTextView;
     }
+    public TextView getPageNumView() {
+        return pageNumView;
+    }
+    public ImageView getImageView() {
+        return imageView;
+    }
+
 
 }

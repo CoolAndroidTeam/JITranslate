@@ -1,7 +1,9 @@
 <resources>
 
     <!-- Base application theme. -->
+
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -11,7 +13,6 @@
 
     </style>
 
-
     <style name="TextAppearance.JITranslate.MenuItem" parent="TextAppearance.AppCompat.Body2">
         <item name="fontFamily">@font/prompt_regular</item>
         <item name="android:textStyle">normal</item>
@@ -19,6 +20,7 @@
         <item name="android:textSize">@dimen/font_text_standart</item>
         <item name="android:letterSpacing">0.1</item>
         <item name="android:textColor">@color/textColorPale</item>
+
     </style>
 
     <style name="TextAppearance.JITranslate.Body1" parent="TextAppearance.AppCompat.Body1">
