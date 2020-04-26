@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/navigation_library"
-        android:name="com.coolcode.jittranslate.ui.library.LibraryFragment"
+        android:name="com.coolcode.jittranslate.ui.clientslibrary.ClientsLibraryFragment"
         android:label="My library"
         tools:layout="@layout/fragment_library" />
 

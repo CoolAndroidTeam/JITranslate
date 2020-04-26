@@ -13,7 +13,7 @@
         android:layout_height="?attr/actionBarSize"
         android:layout_gravity="end"
         android:gravity="end"
-        android:textColorHint="#FFFFFF"
+        android:textColorHint="@color/colorPrimary"
         app:searchBackIcon="@drawable/back_icon"
         app:searchBackground="@color/basicGray"
         app:searchCloseIcon="@drawable/close_icon"

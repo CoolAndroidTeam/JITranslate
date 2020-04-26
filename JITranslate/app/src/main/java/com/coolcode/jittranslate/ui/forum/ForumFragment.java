@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.coolcode.jittranslate.R;
@@ -21,7 +22,7 @@ public class ForumFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         forumViewModel =
-                ViewModelProviders.of(this).get(ForumViewModel.class);
+                new ViewModelProvider(this).get(ForumViewModel.class);
         View root = inflater.inflate(R.layout.fragment_forum, container, false);
         final TextView textView = root.findViewById(R.id.text_forum);
         forumViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {

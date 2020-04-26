@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.coolcode.jittranslate.R;
 import com.kursx.parser.fb2.Element;
-import com.kursx.parser.fb2.Section;
 
 import java.util.ArrayList;
 
