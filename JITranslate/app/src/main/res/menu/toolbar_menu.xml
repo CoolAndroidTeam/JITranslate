@@ -6,5 +6,12 @@
         android:id="@+id/action_search"
         android:icon="@drawable/search_icon"
         app:showAsAction="always|collapseActionView"
-        android:title="TODO" />
+        android:title="@string/search_button" />
+
+    <item
+        android:id="@+id/menu_open"
+        android:icon="@drawable/ic_menu_black"
+        app:showAsAction="ifRoom|collapseActionView"
+        android:title="@string/open_menu_button" />
+
 </menu>

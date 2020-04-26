@@ -1,8 +1,18 @@
 package com.coolcode.jittranslate;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
@@ -20,8 +30,12 @@ public class BottomMenuActivity extends AppCompatActivity implements ShopFragmen
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_bottom_menu);
         NavigationView navView = findViewById(R.id.nav_view);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_library, R.id.navigation_shop, R.id.navigation_study,R.id.navigation_forum)
@@ -33,6 +47,25 @@ public class BottomMenuActivity extends AppCompatActivity implements ShopFragmen
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        MenuItem search_item = menu.findItem(R.id.action_search);
+        search_item.setVisible(false);
+        return true;
+    }
+
+    @SuppressLint("WrongConstant")
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        if (itemId == R.id.menu_open) {
+            DrawerLayout navDrawer = findViewById(R.id.drawer_layout);
+            if(!navDrawer.isDrawerOpen(GravityCompat.END)) navDrawer.openDrawer(GravityCompat.END);
+            else navDrawer.closeDrawer(GravityCompat.START);
+        }
+        return true;
+    }
 
     @Override
     public void onItemSelected(String book_thumbnail, String book_title, String book_category,

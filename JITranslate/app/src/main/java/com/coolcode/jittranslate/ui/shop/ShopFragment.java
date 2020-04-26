@@ -15,12 +15,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -40,7 +37,6 @@ import com.miguelcatalan.materialsearchview.MaterialSearchView;
 import com.coolcode.jittranslate.R;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -129,8 +125,8 @@ public class ShopFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_item, menu);
         MenuItem item = menu.findItem(R.id.action_search);
+        item.setVisible(true);
         searchView.setMenuItem(item);
         super.onCreateOptionsMenu(menu,inflater);
     }

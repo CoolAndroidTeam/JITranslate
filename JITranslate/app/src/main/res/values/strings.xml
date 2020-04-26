@@ -8,4 +8,9 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="buy">buy</string>
+    <string name="preview">preview</string>
+    <string name="book_description">Book Description</string>
+    <string name="search_button">search_button</string>
+    <string name="open_menu_button">open_menu_button</string>
 </resources>
