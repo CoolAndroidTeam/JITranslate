@@ -33,22 +33,25 @@ public class ClientsLibraryFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         clientsLibraryViewModel = new ViewModelProvider(this).get(ClientsLibraryViewModel.class);
 
-        // for live data
+
         View mainView = inflater.inflate(R.layout.fragment_client_library, container, false);
-//        final TextView textView = mainView.findViewById(R.id.text_library);
-//        clientsLibraryViewModel.getText().observe(getViewLifecycleOwner(), s -> textView.setText(s));
 
         RecyclerView recyclerView = mainView.findViewById(R.id.client_books_list);
 
         DataAdapterClientsLibrary adapter;
         if (data == null) {
-            Log.d("data", "here");
             createData(BookDBModel.getAllBooks());
         }
         adapter = new DataAdapterClientsLibrary(this, data);
         recyclerView.setAdapter(adapter);
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         recyclerView.setLayoutManager(layoutManager);
+
+        if (data.size() == 0) {
+            TextView textView = mainView.findViewById(R.id.text_library);
+            // for live data
+            clientsLibraryViewModel.getText().observe(getViewLifecycleOwner(), s -> textView.setText(s));
+        }
 
         return mainView;
     }

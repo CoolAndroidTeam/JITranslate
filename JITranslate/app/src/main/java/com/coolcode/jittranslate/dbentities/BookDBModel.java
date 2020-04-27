@@ -84,7 +84,6 @@ public class BookDBModel {
     }
 
     public void savePage(int page) {
-        System.out.println(page);
         this.page = page;
         SQLiteDatabase dataBase = JITDataBase.getDbWrite();
         try {
@@ -125,7 +124,7 @@ public class BookDBModel {
                 rows.close();
                 dataBase.setTransactionSuccessful();
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             dataBase.endTransaction();

@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +54,7 @@ public class BookDetails extends Fragment {
                                           String book_preview, String book_description) {
         BookDetails fragment = new BookDetails();
         Bundle args = new Bundle();
-        System.out.println("CHOSEN FROM BOOKDETAILS  " +  book_title);
+        Log.d("CHOSEN FROM BOOKDETAILS", book_title);
         args.putString(THUMBNAIL, book_thumbnail);
         args.putString(TITLE, book_title);
         args.putString(CATEGORIES, book_category);

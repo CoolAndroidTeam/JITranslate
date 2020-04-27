@@ -5,6 +5,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -178,7 +179,7 @@ public class ShopFragment extends Fragment {
         builder = finalUri.buildUpon();
         finalRequest = builder.toString();
 
-        System.out.println("Final Request  " + finalRequest);
+        Log.d("Final Request", finalRequest);
         getBooksQuery();
 
     }
@@ -385,7 +386,7 @@ public class ShopFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     int index = viewHolder.getAdapterPosition();
-                    System.out.println("CHOSEN  " +  books.get(index).getmTitle());
+                    Log.d("CHOSEN", books.get(index).getmTitle());
                     mListener.onItemSelected(books.get(index).getmThumbnail(), books.get(index).getmTitle(),
                             books.get(index).getmCategory(), books.get(index).getmRating(),
                             books.get(index).getmAuthors(), books.get(index).getmPrice(),

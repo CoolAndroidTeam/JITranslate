@@ -128,9 +128,7 @@ public class BookViewFragment extends Fragment {
                 ActionBar bar = ((AppCompatActivity) getActivity()).getSupportActionBar();
                 if (newState == 0) {
                     LinearLayoutManager linearLayoutManager = (LinearLayoutManager)recyclerView.getLayoutManager();
-                    System.out.println("here");
                     int pos = linearLayoutManager.findFirstVisibleItemPosition();
-                    System.out.println("here");
                     Log.d("pos", String.valueOf(pos));
                     bookDBModel.savePage(pos+1);
                 }

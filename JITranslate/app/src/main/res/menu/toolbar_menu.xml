@@ -4,13 +4,13 @@
 
     <item
         android:id="@+id/action_search"
-        android:icon="@drawable/search_icon"
+        android:icon="@drawable/ic_search_white"
         app:showAsAction="ifRoom|collapseActionView"
         android:title="@string/search_button" />
 
     <item
         android:id="@+id/menu_open"
-        android:icon="@drawable/ic_menu_black"
+        android:icon="@drawable/ic_menu_white"
         app:showAsAction="ifRoom|collapseActionView"
         android:title="@string/open_menu_button" />
 

@@ -30,6 +30,7 @@ import com.coolcode.jittranslate.ui.clientslibrary.ClientBooksListener;
 import com.coolcode.jittranslate.ui.shop.BookDetails;
 import com.coolcode.jittranslate.ui.shop.ShopFragment;
 import com.coolcode.jittranslate.utils.Constants;
+import com.coolcode.jittranslate.utils.FileReader;
 import com.coolcode.jittranslate.viewentities.ClientBook;
 import com.google.android.material.navigation.NavigationView;
 
@@ -67,6 +68,11 @@ public class MainActivity extends AppCompatActivity implements BookViewListener,
         new JITDataBase(getBaseContext());
         setDisplayMetrics();
 
+        FileReader fileReader = new FileReader(getAssets(), getExternalFilesDir(null));
+
+        fileReader.copyFilesFromAssetsToExternalStorage(Constants.assetsBooksDir, Constants.clientsBooksDir);
+        fileReader.copyFilesFromAssetsToExternalStorage(Constants.assetsBooksCoversDir, Constants.clientsBooksCoversDir);
+
         Log.d("activity", "onCreate");
     }
 
@@ -97,16 +103,13 @@ public class MainActivity extends AppCompatActivity implements BookViewListener,
                                String book_buy, String book_preview, String book_description) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment currentFragment = fragmentManager.findFragmentById(R.id.fragment_container);
-        System.out.println("FRAGMENT FROM ACTIVITY  " +  currentFragment);
-//        if (currentFragment instanceof ShopFragment) {
-        System.out.println("CHOSEN FROM ACTIVITY  " + book_title);
+        Log.d("FRAGMENT FROM ACTIVITY", String.valueOf(currentFragment));
+        Log.d("CHOSEN FROM ACTIVITY", String.valueOf(book_title));
         fragmentManager.beginTransaction().replace(R.id.shop_container, BookDetails.newInstance(book_thumbnail,
                 book_title, book_category, book_rating, book_author, book_price, book_buy, book_preview,
                 book_description))
                 .addToBackStack(null)
                 .commit();
-//        }
-
 
     }
 

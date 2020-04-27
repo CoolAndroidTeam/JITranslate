@@ -1,5 +1,7 @@
 package com.coolcode.jittranslate.views.clientlibrary;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +14,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.coolcode.jittranslate.R;
 import com.coolcode.jittranslate.ui.clientslibrary.ClientsLibraryFragment;
+import com.coolcode.jittranslate.utils.Constants;
+import com.coolcode.jittranslate.utils.FileReader;
+import com.coolcode.jittranslate.utils.FilenameConstructor;
 import com.coolcode.jittranslate.viewentities.ClientBook;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class DataAdapterClientsLibrary extends RecyclerView.Adapter<ClientsBooksViewHolder> {
@@ -42,6 +48,13 @@ public class DataAdapterClientsLibrary extends RecyclerView.Adapter<ClientsBooks
         clientBookAuthorView.setText(clientBook.getAuthor());
         clientBookNameView.setText(clientBook.getName());
 
+        String imageFilename = new FilenameConstructor().constructCoverFileName(clientBook.getAuthor(), clientBook.getName());
+        File coverFile = new FileReader(this.fragment.getActivity().getAssets(), this.fragment.getActivity().getExternalFilesDir(null))
+                .createFile(Constants.clientsBooksCoversDir,imageFilename);
+        if (coverFile.exists()) {
+            Bitmap bitmap = BitmapFactory.decodeFile(String.valueOf(coverFile));
+            clientBookCoverView.setImageBitmap(bitmap);
+        }
     }
 
     @Override
