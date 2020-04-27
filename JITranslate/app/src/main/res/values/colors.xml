@@ -6,7 +6,8 @@
     <color name="textColorDark">#000000</color>
     <color name="textColorPale">#8E858C</color>
     <color name="textColor">#FFFFFF</color>
-    <color name="litePrime">#83d0d4</color>
+    <color name="litePrime">#cca3c1</color>
     <color name="basicGray">#D4D3D0</color>
     <color name="ratingGold">#FCD94D </color>
+    <color name="lightPink">#edd3e6</color>
 </resources>
