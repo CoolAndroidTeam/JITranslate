@@ -68,10 +68,7 @@ public class MainActivity extends AppCompatActivity implements BookViewListener,
         new JITDataBase(getBaseContext());
         setDisplayMetrics();
 
-        FileReader fileReader = new FileReader(getAssets(), getExternalFilesDir(null));
-
-        fileReader.copyFilesFromAssetsToExternalStorage(Constants.assetsBooksDir, Constants.clientsBooksDir);
-        fileReader.copyFilesFromAssetsToExternalStorage(Constants.assetsBooksCoversDir, Constants.clientsBooksCoversDir);
+        addBooksToExtStorage();
 
         Log.d("activity", "onCreate");
     }
@@ -148,5 +145,20 @@ public class MainActivity extends AppCompatActivity implements BookViewListener,
         Bundle bundle = new Bundle();
         bundle.putSerializable("data", new ClientBook(name, author));
         navController.navigate(R.id.navigation_bookview, bundle);
+    }
+
+    private void addBooksToExtStorage() {
+        File f = new File(getExternalFilesDir(null), Constants.clientsBooksDir);
+        if (!f.exists()) {
+            f.mkdirs();
+        }
+        f = new File(getExternalFilesDir(null), Constants.clientsBooksCoversDir);
+        if (!f.exists()) {
+            f.mkdirs();
+        }
+        FileReader fileReader = new FileReader(getAssets(), getExternalFilesDir(null));
+
+        fileReader.copyFilesFromAssetsToExternalStorage(Constants.assetsBooksDir, Constants.clientsBooksDir);
+        fileReader.copyFilesFromAssetsToExternalStorage(Constants.assetsBooksCoversDir, Constants.clientsBooksCoversDir);
     }
 }
