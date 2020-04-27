@@ -1,7 +1,9 @@
 package com.coolcode.jittranslate;
 
 import android.annotation.SuppressLint;
+import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
@@ -31,6 +33,12 @@ import com.coolcode.jittranslate.utils.Constants;
 import com.coolcode.jittranslate.viewentities.ClientBook;
 import com.google.android.material.navigation.NavigationView;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 
 public class MainActivity extends AppCompatActivity implements BookViewListener, ClientBooksListener, ShopFragment.OnItemSelectedListener {
 
@@ -47,12 +55,7 @@ public class MainActivity extends AppCompatActivity implements BookViewListener,
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed(); // Implemented by activity
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_library, R.id.navigation_shop, R.id.navigation_study,R.id.navigation_forum)
@@ -64,14 +67,9 @@ public class MainActivity extends AppCompatActivity implements BookViewListener,
         new JITDataBase(getBaseContext());
         setDisplayMetrics();
 
-//        if (savedInstanceState == null) {
-//            fragmentManager = getSupportFragmentManager();
-//            FragmentTransaction transaction = fragmentManager.beginTransaction();
-//            transaction.add(R.id.fragment_container, new BookViewFragment(), "tag");
-//            transaction.commit();
-//        }
         Log.d("activity", "onCreate");
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

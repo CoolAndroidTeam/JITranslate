@@ -5,6 +5,7 @@ import com.coolcode.jittranslate.dbentities.BookDBModel;
 import com.coolcode.jittranslate.utils.Constants;
 import com.coolcode.jittranslate.utils.FB2BookElements;
 import com.coolcode.jittranslate.utils.FileReader;
+import com.coolcode.jittranslate.utils.FilenameConstructor;
 import com.coolcode.jittranslate.utils.TextOrPicture;
 import com.coolcode.jittranslate.viewentities.ClientBook;
 import com.coolcode.jittranslate.views.bookview.DataAdapterBookView;
@@ -68,7 +69,8 @@ public class BookViewFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Bundle bundle = this.getArguments();
         this.book = (ClientBook) bundle.getSerializable("data");
-        Log.d("book", this.book.getAuthor());
+        String bookFilename = new FilenameConstructor().constructBookFileName(this.book.getAuthor(), this.book.getName());
+        Log.d("book", bookFilename);
         this.createBookDB();
         View mainView = inflater.inflate(R.layout.bookview, container, false);
         RecyclerView recyclerView = mainView.findViewById(R.id.pages_list);
@@ -76,8 +78,8 @@ public class BookViewFragment extends Fragment {
         addScrollListener(recyclerView);
         DataAdapterBookView adapter;
         if (data == null) {
-            FileReader fileReader = new FileReader(this.getActivity().getAssets(), getActivity().getCacheDir(),Constants.testFb2File);
-            readBook(fileReader.createFile());
+            FileReader fileReader = new FileReader(this.getActivity().getAssets(), this.getActivity().getExternalFilesDir(null));
+            readBook(fileReader.createFile(Constants.clientsBooksDir, bookFilename));
             data = this.fb2Book.getPages();
         }
         adapter = new DataAdapterBookView(this, data);
