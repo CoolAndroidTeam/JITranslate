@@ -9,7 +9,7 @@ public class ForumViewModel extends ViewModel {
 
     public ForumViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is forum fragment");
+        mText.setValue("We suggest you visit www.booktalk.org to discuss your favorite books!");
     }
 
     public LiveData<String> getText() {

@@ -361,7 +361,7 @@ public class ShopFragment extends Fragment {
 
         }
         return bookData;
-    }
+    } //TODO: вынести сеть и разбить json parser
     public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
 
         List<Book> books;

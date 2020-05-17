@@ -1,5 +1,7 @@
 package com.coolcode.jittranslate.ui.forum;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +33,8 @@ public class ForumFragment extends Fragment {
                 textView.setText(s);
             }
         });
+        Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.booktalk.org/"));
+        startActivity(i);
         return root;
     }
 }
