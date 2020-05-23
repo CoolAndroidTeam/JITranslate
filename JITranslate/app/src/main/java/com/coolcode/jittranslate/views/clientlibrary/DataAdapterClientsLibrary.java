@@ -2,6 +2,7 @@ package com.coolcode.jittranslate.views.clientlibrary;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -31,11 +33,12 @@ public class DataAdapterClientsLibrary extends RecyclerView.Adapter<ClientsBooks
         this.clientBooks = books;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @NonNull
     @Override
     public ClientsBooksViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View listItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.client_book_item, parent, false);
-        return new ClientsBooksViewHolder(listItem);
+        return new ClientsBooksViewHolder(listItem, fragment);
     }
 
     @Override

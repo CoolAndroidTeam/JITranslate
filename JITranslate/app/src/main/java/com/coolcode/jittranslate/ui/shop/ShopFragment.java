@@ -29,6 +29,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.coolcode.jittranslate.utils.Constants;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -360,10 +361,10 @@ public class ShopFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     int index = viewHolder.getAdapterPosition();
-                    Log.d("CHOSEN", books.get(index).getmTitle());
+                    Log.d(Constants.shopBookKey, books.get(index).getmTitle());
 
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("data", books.get(index));
+                    bundle.putSerializable(Constants.shopBookKey, books.get(index));
                     Navigation.findNavController(v).navigate(R.id.navigation_shopview, bundle);
 
                 }

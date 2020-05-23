@@ -1,6 +1,8 @@
 package com.coolcode.jittranslate.utils;
 
 public class Constants {
+    public static final String clientBookKey = "chosen_client_book";
+    public static final String shopBookKey = "chosen_shop_book";
     public static final String testFb2File = "Diane_Setterfield-The_Thirteenth_Tale.fb2";
     public static final String testBookName = "Don Kihot";
     public static final String testBookAuthor = "Migel Servantes";

@@ -1,7 +1,5 @@
 package com.coolcode.jittranslate.utils;
 
-import java.io.File;
-
 public class FilenameConstructor {
 
     private enum FileType{

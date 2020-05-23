@@ -2,7 +2,6 @@ package com.coolcode.jittranslate.views.bookview;
 
 import android.graphics.Bitmap;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,20 +16,16 @@ import com.coolcode.jittranslate.R;
 import com.coolcode.jittranslate.ui.bookview.BookViewFragment;
 import com.coolcode.jittranslate.utils.BitmapCreator;
 import com.coolcode.jittranslate.utils.TextOrPicture;
-import com.kursx.parser.fb2.Binary;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public class DataAdapterBookView extends RecyclerView.Adapter<BookViewHolder> {
     private BookViewFragment fragment;
     private ArrayList<TextOrPicture> bookPages;
-    private Map<String, Binary> binaries;
 
     public DataAdapterBookView(Fragment fragment, ArrayList<TextOrPicture> sections) {
         this.fragment = (BookViewFragment)fragment;
         this.bookPages = sections;
-        this.binaries = this.fragment.getFb2Book().getBook().getBinaries();
     }
 
     @NonNull
@@ -51,7 +46,7 @@ public class DataAdapterBookView extends RecyclerView.Adapter<BookViewHolder> {
             imageView.setImageDrawable(null);
         } else {
             pageView.setText("");
-            BitmapCreator bmCreator = new BitmapCreator(this.binaries.get(top.getImageKey()).getBinary());
+            BitmapCreator bmCreator = new BitmapCreator(fragment.getBinary(top.getImageKey()));
 
             DisplayMetrics metrics = new DisplayMetrics();
             this.fragment.getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);

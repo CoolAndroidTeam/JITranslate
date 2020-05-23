@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.coolcode.jittranslate.R;
+import com.coolcode.jittranslate.utils.Constants;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
 
@@ -30,7 +31,7 @@ public class BookDetailsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = this.getArguments();
-        chosenBook = (BuyBook) bundle.getSerializable("data");
+        chosenBook = (BuyBook) bundle.getSerializable(Constants.shopBookKey);
     }
 
     @Override

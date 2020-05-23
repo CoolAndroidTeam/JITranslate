@@ -11,7 +11,7 @@
         android:label="My library"
         tools:layout="@layout/fragment_client_library" >
         <action
-            android:id="@+id/next_action"
+            android:id="@+id/to_bookview"
             app:popUpTo="@+id/navigation_bookview">
         </action>
     </fragment>
@@ -22,7 +22,7 @@
         android:label="My buyBook"
         tools:layout="@layout/bookview">
         <action
-            android:id="@+id/next_action"
+            android:id="@+id/to_client_books"
             app:popUpTo="@+id/navigation_library">
         </action>
 
@@ -34,7 +34,7 @@
         android:label="Buy books"
         tools:layout="@layout/fragment_shop">
         <action
-            android:id="@+id/next_action"
+            android:id="@+id/to_shopview"
             app:popUpTo="@+id/navigation_shopview">
         </action>
     </fragment>
@@ -45,7 +45,7 @@
         android:label="My buyBook"
         tools:layout="@layout/fragment_book_details">
         <action
-            android:id="@+id/next_action"
+            android:id="@+id/to_shop"
             app:popUpTo="@+id/navigation_shop">
         </action>
 

@@ -73,12 +73,6 @@ public class MainActivity extends AppCompatActivity{
         }
         return true;
     }
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.d("activity", "onDestroy");
-    }
-
 
     private void setDisplayMetrics() {
         DisplayMetrics metrics = new DisplayMetrics();
