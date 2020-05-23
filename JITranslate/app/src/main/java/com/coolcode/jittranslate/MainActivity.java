@@ -13,7 +13,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -23,7 +22,7 @@ import com.coolcode.jittranslate.database.JITDataBase;
 import com.coolcode.jittranslate.ui.bookview.BookViewFragment;
 import com.coolcode.jittranslate.ui.bookview.BookViewListener;
 import com.coolcode.jittranslate.ui.clientslibrary.ClientBooksListener;
-import com.coolcode.jittranslate.ui.shop.BookDetails;
+import com.coolcode.jittranslate.ui.shop.Book;
 import com.coolcode.jittranslate.ui.shop.ShopFragment;
 import com.coolcode.jittranslate.utils.Constants;
 import com.coolcode.jittranslate.utils.FileReader;
@@ -35,7 +34,6 @@ import java.io.File;
 
 public class MainActivity extends AppCompatActivity implements BookViewListener, ClientBooksListener, ShopFragment.OnItemSelectedListener {
 
-    private FragmentManager fragmentManager;
     private NavController navController;
 
     @Override
@@ -46,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements BookViewListener,
         setContentView(R.layout.activity_bottom_menu);
         NavigationView navView = findViewById(R.id.nav_view);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
@@ -87,19 +85,10 @@ public class MainActivity extends AppCompatActivity implements BookViewListener,
     }
 
     @Override
-    public void onItemSelected(String book_thumbnail, String book_title, String book_category,
-                               String book_rating, String book_author, String book_price,
-                               String book_buy, String book_preview, String book_description) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment currentFragment = fragmentManager.findFragmentById(R.id.fragment_container);
-        Log.d("FRAGMENT FROM ACTIVITY", String.valueOf(currentFragment));
-        Log.d("CHOSEN FROM ACTIVITY", String.valueOf(book_title));
-
-        fragmentManager.beginTransaction().replace(R.id.shop_container, BookDetails.newInstance(book_thumbnail,
-                book_title, book_category, book_rating, book_author, book_price, book_buy, book_preview,
-                book_description))
-                .addToBackStack(null)
-                .commit();
+    public void onItemSelected(Book book) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("data", book);
+        navController.navigate(R.id.navigation_shopview, bundle);
 
     }
 

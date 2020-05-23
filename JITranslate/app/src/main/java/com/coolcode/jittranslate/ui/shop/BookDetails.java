@@ -25,15 +25,6 @@ import java.util.Objects;
 public class BookDetails extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String THUMBNAIL = "thumbnail";
-    private static final String TITLE = "title";
-    private static final String CATEGORIES = "categories";
-    private static final String RATING = "rating";
-    private static final String AUTHORS = "authors";
-    private static final String PRICE = "price";
-    private static final String BUY = "buy";
-    private static final String PREWIEW = "preview";
-    private static final String DESCRIPTION = "description";
 
 
     private String thumbnail = "";
@@ -49,38 +40,21 @@ public class BookDetails extends Fragment {
     public BookDetails() {
     }
 
-    public static Fragment newInstance(String book_thumbnail, String book_title, String book_category,
-                                       String book_rating, String book_author, String book_price, String book_buy,
-                                       String book_preview, String book_description) {
-        BookDetails fragment = new BookDetails();
-        Bundle args = new Bundle();
-        Log.d("CHOSEN FROM BOOKDETAILS", book_title);
-        args.putString(THUMBNAIL, book_thumbnail);
-        args.putString(TITLE, book_title);
-        args.putString(CATEGORIES, book_category);
-        args.putString(RATING, book_rating);
-        args.putString(AUTHORS, book_author);
-        args.putString(PRICE, book_price);
-        args.putString(BUY, book_buy);
-        args.putString(PREWIEW, book_preview);
-        args.putString(DESCRIPTION, book_description);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle bundle = this.getArguments();
+        Book book = (Book) bundle.getSerializable("data");
         if (getArguments() != null) {
-            thumbnail = getArguments().getString(THUMBNAIL);
-            title = getArguments().getString(TITLE);
-            categories = getArguments().getString(CATEGORIES);
-            rating = getArguments().getString(RATING);
-            authors = getArguments().getString(AUTHORS);
-            price = getArguments().getString(PRICE);
-            buy = getArguments().getString(BUY);
-            preview = getArguments().getString(PREWIEW);
-            description = getArguments().getString(DESCRIPTION);
+            thumbnail = book.getmThumbnail();
+            title = book.getmTitle();
+            categories = book.getmCategory();
+            rating = book.getmRating();
+            authors = book.getmAuthors();
+            price = book.getmPrice();
+            buy = book.getmBuyLink();
+            preview = book.getmPreviewLink();
+            description = book.getmDescription();
         }
     }
 
@@ -103,7 +77,7 @@ public class BookDetails extends Fragment {
         TextView tvPreview = view.findViewById(R.id.preview_book);
         TextView tvDescription = view.findViewById(R.id.book_description);
 
-        Glide.with(Objects.requireNonNull(this.getContext())).load(thumbnail).into(ivThumbnail);
+        Glide.with(this.requireContext()).load(thumbnail).into(ivThumbnail);
         tvTitle.setText(title);
         tvAuthors.setText(authors);
         tvDescription.setText(description);

@@ -33,6 +33,21 @@
         android:name="com.coolcode.jittranslate.ui.shop.ShopFragment"
         android:label="Buy books"
         tools:layout="@layout/fragment_shop">
+        <action
+            android:id="@+id/next_action"
+            app:popUpTo="@+id/navigation_shopview">
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_shopview"
+        android:name="com.coolcode.jittranslate.ui.shop.BookDetails"
+        android:label="My book"
+        tools:layout="@layout/fragment_book_details">
+        <action
+            android:id="@+id/next_action"
+            app:popUpTo="@+id/navigation_shop">
+        </action>
 
     </fragment>
 

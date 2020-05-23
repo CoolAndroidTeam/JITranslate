@@ -69,9 +69,7 @@ public class ShopFragment extends Fragment {
 
 
     public interface OnItemSelectedListener {
-        void onItemSelected(String book_thumbnail, String book_title, String book_category,
-                            String book_rating, String book_author, String book_price,
-                            String book_buy, String book_preview, String book_description);
+        void onItemSelected(Book book);
     }
 
     @Override
@@ -138,16 +136,6 @@ public class ShopFragment extends Fragment {
                 || super.onOptionsItemSelected(item);
     }
 
-//    @Override
-//    public void onResume() {
-//        super.onResume();
-//        ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
-//    }
-//    @Override
-//    public void onStop() {
-//        super.onStop();
-//        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
-//    }
 
     private boolean readNetworkState(Context context) {
 
@@ -162,7 +150,7 @@ public class ShopFragment extends Fragment {
     }
     private void search(String query) {
 
-        boolean is_connected = readNetworkState(Objects.requireNonNull(this.getContext()));
+        boolean is_connected = readNetworkState(this.requireContext());
         if (!is_connected) {
             shopViewModel.setValue("Check your connection or try again");
             return;
@@ -387,12 +375,10 @@ public class ShopFragment extends Fragment {
                 public void onClick(View v) {
                     int index = viewHolder.getAdapterPosition();
                     Log.d("CHOSEN", books.get(index).getmTitle());
-                    mListener.onItemSelected(books.get(index).getmThumbnail(), books.get(index).getmTitle(),
-                            books.get(index).getmCategory(), books.get(index).getmRating(),
-                            books.get(index).getmAuthors(), books.get(index).getmPrice(),
-                            books.get(index).getmBuyLink(), books.get(index).getmPreviewLink(),
-                            books.get(index).getmDescription());
+                    mListener.onItemSelected(books.get(index));
+
                 }
+
             });
             return viewHolder;
         }
