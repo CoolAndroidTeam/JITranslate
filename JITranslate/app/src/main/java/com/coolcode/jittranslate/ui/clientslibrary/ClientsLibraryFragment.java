@@ -65,8 +65,4 @@ public class ClientsLibraryFragment extends Fragment {
             this.data.add(new ClientBook(bookDBModel.getName(), bookDBModel.getAuthor()));
         }
     }
-
-    public ClientBooksListener getClientLibraryListenerActivity() {
-        return (ClientBooksListener)getActivity();
-    }
 }

@@ -35,7 +35,7 @@ public class DataAdapterClientsLibrary extends RecyclerView.Adapter<ClientsBooks
     @Override
     public ClientsBooksViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View listItem = LayoutInflater.from(parent.getContext()).inflate(R.layout.client_book_item, parent, false);
-        return new ClientsBooksViewHolder(listItem, fragment);
+        return new ClientsBooksViewHolder(listItem);
     }
 
     @Override

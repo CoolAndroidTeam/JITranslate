@@ -6,7 +6,6 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,43 +18,19 @@ import com.bumptech.glide.Glide;
 import com.coolcode.jittranslate.R;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
-import java.util.Objects;
 
-
-public class BookDetails extends Fragment {
+public class BookDetailsFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
 
-    private String thumbnail = "";
-    private String title = "";
-    private String categories = "";
-    private String rating = "";
-    private String authors = "";
-    private String price = "";
-    private String buy = "";
-    private String preview = "";
-    private String description = "";
-
-    public BookDetails() {
-    }
+    private BuyBook chosenBook;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = this.getArguments();
-        Book book = (Book) bundle.getSerializable("data");
-        if (getArguments() != null) {
-            thumbnail = book.getmThumbnail();
-            title = book.getmTitle();
-            categories = book.getmCategory();
-            rating = book.getmRating();
-            authors = book.getmAuthors();
-            price = book.getmPrice();
-            buy = book.getmBuyLink();
-            preview = book.getmPreviewLink();
-            description = book.getmDescription();
-        }
+        chosenBook = (BuyBook) bundle.getSerializable("data");
     }
 
     @Override
@@ -64,7 +39,7 @@ public class BookDetails extends Fragment {
         View view = inflater.inflate(R.layout.fragment_book_details, container, false);
         CollapsingToolbarLayout collapsingToolbarLayout = view.findViewById(R.id.collapsing_toolbar);
         collapsingToolbarLayout.setTitleEnabled(true);
-        collapsingToolbarLayout.setTitle(title);
+        collapsingToolbarLayout.setTitle(chosenBook.getmTitle());
 
 
         ImageView ivThumbnail = view.findViewById(R.id.detail_book_image);
@@ -77,13 +52,15 @@ public class BookDetails extends Fragment {
         TextView tvPreview = view.findViewById(R.id.preview_book);
         TextView tvDescription = view.findViewById(R.id.book_description);
 
-        Glide.with(this.requireContext()).load(thumbnail).into(ivThumbnail);
-        tvTitle.setText(title);
-        tvAuthors.setText(authors);
-        tvDescription.setText(description);
-        tvCategory.setText(categories);
+        String price = chosenBook.getmPrice();
+
+        Glide.with(this.requireContext()).load(chosenBook.getmThumbnail()).into(ivThumbnail);
+        tvTitle.setText(chosenBook.getmTitle());
+        tvAuthors.setText(chosenBook.getmAuthors());
+        tvDescription.setText(chosenBook.getmDescription());
+        tvCategory.setText(chosenBook.getmCategory());
         tvPrice.setText(price);
-        Rating.setRating(Float.parseFloat(rating));
+        Rating.setRating(Float.parseFloat(chosenBook.getmRating()));
 
         if (price.equals("Free")) {
             tvBuy.setVisibility(View.INVISIBLE);
@@ -92,7 +69,7 @@ public class BookDetails extends Fragment {
             tvBuy.setVisibility(View.VISIBLE);
         }
 
-        final String finalBuy = buy;
+        final String finalBuy = chosenBook.getmBuyLink();
         tvBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,7 +80,7 @@ public class BookDetails extends Fragment {
         });
 
 
-        final String finalPreview = preview;
+        final String finalPreview = chosenBook.getmPreviewLink();
         tvPreview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,7 +88,7 @@ public class BookDetails extends Fragment {
                     Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(finalPreview));
                     startActivity(i);
                 } else {
-                    Toast.makeText(BookDetails.this.getContext(), "PreviewLink Not Available", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "PreviewLink Not Available", Toast.LENGTH_LONG).show();
                 }
 
             }

@@ -2,7 +2,7 @@ package com.coolcode.jittranslate.ui.shop;
 
 import java.io.Serializable;
 
-public class Book implements Serializable {
+public class BuyBook implements Serializable {
 
     private String mThumbnail;
     private String mTitle;
@@ -15,7 +15,7 @@ public class Book implements Serializable {
     private String mPreviewLink ;
 
 
-    public Book(String mThumbnail, String mTitle, String mCategory, String mRating, String mAuthors , String mPrice , String mDescription, String mBuyLink , String mPreviewLink  ) {
+    public BuyBook(String mThumbnail, String mTitle, String mCategory, String mRating, String mAuthors , String mPrice , String mDescription, String mBuyLink , String mPreviewLink  ) {
         this.mThumbnail = mThumbnail;
         this.mTitle = mTitle;
         this.mCategory = mCategory;

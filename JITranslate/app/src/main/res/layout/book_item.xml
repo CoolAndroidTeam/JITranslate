@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="monospace"
-            android:text="book title"
+            android:text="buyBook title"
             android:textColor="@android:color/black"
             android:textSize="14sp" />
 
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
             android:fontFamily="monospace"
-            android:text="book category"
+            android:text="buyBook category"
             android:textSize="14sp" />
 
         <RatingBar
@@ -56,7 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
             android:fontFamily="monospace"
-            android:text="book author"
+            android:text="buyBook author"
             android:textSize="14sp" />
 
     </LinearLayout>

@@ -22,7 +22,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
@@ -40,7 +39,6 @@ import com.coolcode.jittranslate.R;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -65,18 +63,6 @@ public class ShopFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private RecyclerViewAdapter recyclerViewAdapter;
-    private OnItemSelectedListener mListener;
-
-
-    public interface OnItemSelectedListener {
-        void onItemSelected(Book book);
-    }
-
-    @Override
-    public void onAttach(@NonNull Context activity) {
-        super.onAttach(activity);
-        mListener = (OnItemSelectedListener) activity;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -185,7 +171,7 @@ public class ShopFragment extends Fragment {
                 JsonObject root = response.body();
 
                 if (root.get("totalItems").getAsString() != "0") {
-                    List<Book> books;
+                    List<BuyBook> books;
                     books = jsonParse(root);
                     if (books != null && !books.isEmpty()) {
                         recyclerView.setVisibility(View.VISIBLE);
@@ -210,9 +196,9 @@ public class ShopFragment extends Fragment {
             }
         });
     }
-    private List<Book> jsonParse(JsonObject root) {
+    private List<BuyBook> jsonParse(JsonObject root) {
 
-        List<Book> bookData = new ArrayList<>();
+        List<BuyBook> bookData = new ArrayList<>();
 
         JsonObject item;
         JsonObject volumeInfo;
@@ -345,17 +331,17 @@ public class ShopFragment extends Fragment {
 
             }
 
-            bookData.add(new Book(smallThumbnail, title, category, avgRating, authors, price, description, buyLink, previewLink));
+            bookData.add(new BuyBook(smallThumbnail, title, category, avgRating, authors, price, description, buyLink, previewLink));
 
         }
         return bookData;
     } //TODO: вынести сеть и разбить json parser
     public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
 
-        List<Book> books;
+        List<BuyBook> books;
         Context context;
 
-        public RecyclerViewAdapter(List<Book> books, Context context) {
+        public RecyclerViewAdapter(List<BuyBook> books, Context context) {
             this.books = books;
             this.context = context;
         }
@@ -375,7 +361,10 @@ public class ShopFragment extends Fragment {
                 public void onClick(View v) {
                     int index = viewHolder.getAdapterPosition();
                     Log.d("CHOSEN", books.get(index).getmTitle());
-                    mListener.onItemSelected(books.get(index));
+
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("data", books.get(index));
+                    Navigation.findNavController(v).navigate(R.id.navigation_shopview, bundle);
 
                 }
 
@@ -386,18 +375,18 @@ public class ShopFragment extends Fragment {
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-            Book book = books.get(position);
+            BuyBook buyBook = books.get(position);
 
-            holder.tvTitle.setText(book.getmTitle());
-            holder.tvCategories.setText(book.getmCategory());
+            holder.tvTitle.setText(buyBook.getmTitle());
+            holder.tvCategories.setText(buyBook.getmCategory());
             try {
-                holder.ratingBar.setRating(Float.parseFloat(book.getmRating()));
+                holder.ratingBar.setRating(Float.parseFloat(buyBook.getmRating()));
             } catch (NumberFormatException e) {
                 e.printStackTrace();
             }
-            holder.tvAuthors.setText(book.getmAuthors());
+            holder.tvAuthors.setText(buyBook.getmAuthors());
 
-            String imgProtocol = book.getmThumbnail().replace("http", "http");
+            String imgProtocol = buyBook.getmThumbnail().replace("http", "http");
             Glide.with(context)
                     .load(imgProtocol)
                     .placeholder(R.drawable.placeholder_image)

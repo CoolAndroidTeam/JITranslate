@@ -19,7 +19,7 @@
     <fragment
         android:id="@+id/navigation_bookview"
         android:name="com.coolcode.jittranslate.ui.bookview.BookViewFragment"
-        android:label="My book"
+        android:label="My buyBook"
         tools:layout="@layout/bookview">
         <action
             android:id="@+id/next_action"
@@ -41,8 +41,8 @@
 
     <fragment
         android:id="@+id/navigation_shopview"
-        android:name="com.coolcode.jittranslate.ui.shop.BookDetails"
-        android:label="My book"
+        android:name="com.coolcode.jittranslate.ui.shop.BookDetailsFragment"
+        android:label="My buyBook"
         tools:layout="@layout/fragment_book_details">
         <action
             android:id="@+id/next_action"

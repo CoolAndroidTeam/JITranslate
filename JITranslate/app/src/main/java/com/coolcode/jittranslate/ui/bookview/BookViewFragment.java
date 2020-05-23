@@ -48,20 +48,10 @@ import javax.xml.parsers.ParserConfigurationException;
 import me.zhanghai.android.fastscroll.FastScrollerBuilder;
 
 public class BookViewFragment extends Fragment {
-    private BookViewListener activity;
     private ArrayList<TextOrPicture> data;
     private FB2BookElements fb2Book;
     private ClientBook book = new ClientBook(Constants.testBookName, Constants.testBookAuthor);
     private BookDBModel bookDBModel ;
-
-    public void setEventListenerActivity(BookViewListener activity) {
-        this.activity = activity;
-    }
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Nullable
@@ -151,9 +141,6 @@ public class BookViewFragment extends Fragment {
 
     private void createBookDB() {
         this.bookDBModel = new BookDBModel(this.book.getName(), this.book.getAuthor());
-    }
 
-    public BookViewListener getBookViewistenerActivity() {
-        return (BookViewListener)getActivity();
     }
 }

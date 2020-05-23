@@ -7,34 +7,24 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.coolcode.jittranslate.database.JITDataBase;
-import com.coolcode.jittranslate.ui.bookview.BookViewFragment;
-import com.coolcode.jittranslate.ui.bookview.BookViewListener;
-import com.coolcode.jittranslate.ui.clientslibrary.ClientBooksListener;
-import com.coolcode.jittranslate.ui.shop.Book;
-import com.coolcode.jittranslate.ui.shop.ShopFragment;
 import com.coolcode.jittranslate.utils.Constants;
 import com.coolcode.jittranslate.utils.FileReader;
-import com.coolcode.jittranslate.viewentities.ClientBook;
 import com.google.android.material.navigation.NavigationView;
 
 import java.io.File;
 
 
-public class MainActivity extends AppCompatActivity implements BookViewListener, ClientBooksListener, ShopFragment.OnItemSelectedListener {
-
-    private NavController navController;
+public class MainActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements BookViewListener,
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_library, R.id.navigation_shop, R.id.navigation_study,R.id.navigation_forum)
                 .build();
-        navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
@@ -83,32 +73,12 @@ public class MainActivity extends AppCompatActivity implements BookViewListener,
         }
         return true;
     }
-
-    @Override
-    public void onItemSelected(Book book) {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("data", book);
-        navController.navigate(R.id.navigation_shopview, bundle);
-
-    }
-
-    @Override
-    public void onAttachFragment(@NonNull Fragment fragment) {
-        if (fragment instanceof BookViewFragment) {
-            ((BookViewFragment) fragment).setEventListenerActivity(this);
-        }
-    }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
         Log.d("activity", "onDestroy");
     }
 
-    @Override
-    public void onWordSelected(String word) {
-
-    }
 
     private void setDisplayMetrics() {
         DisplayMetrics metrics = new DisplayMetrics();
@@ -118,16 +88,6 @@ public class MainActivity extends AppCompatActivity implements BookViewListener,
         Constants.currentTextSize = getResources().getDimensionPixelSize(R.dimen.font_text_standart);
     }
 
-    public NavController getNavController() {
-        return navController;
-    }
-
-    @Override
-    public void onBookSelected(String name, String author) {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("data", new ClientBook(name, author));
-        navController.navigate(R.id.navigation_bookview, bundle);
-    }
 
     private void addBooksToExtStorage() {
         File f = new File(getExternalFilesDir(null), Constants.clientsBooksDir);
