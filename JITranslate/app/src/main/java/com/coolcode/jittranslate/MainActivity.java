@@ -94,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements BookViewListener,
         Fragment currentFragment = fragmentManager.findFragmentById(R.id.fragment_container);
         Log.d("FRAGMENT FROM ACTIVITY", String.valueOf(currentFragment));
         Log.d("CHOSEN FROM ACTIVITY", String.valueOf(book_title));
+
         fragmentManager.beginTransaction().replace(R.id.shop_container, BookDetails.newInstance(book_thumbnail,
                 book_title, book_category, book_rating, book_author, book_price, book_buy, book_preview,
                 book_description))

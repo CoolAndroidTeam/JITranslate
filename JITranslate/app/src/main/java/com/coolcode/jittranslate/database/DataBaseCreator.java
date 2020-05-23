@@ -12,7 +12,7 @@ public class DataBaseCreator extends SQLiteOpenHelper {
     private static final String insertHelpValues = "INSERT INTO books (name, author, page) VALUES ('Tom Sawyer', 'Mark Twain', 1), ('Alice In Wonderland', 'Lewis Carroll', 1), ('Don Kihot', 'Migel Servantes', 1), ('The Thirteenth Tale', 'Diane Setterfield', 1), ('Dracula', 'Bram Stoker', 1), ('The Canterville Ghost', 'Oscar Wilde', 1);";
 
     public DataBaseCreator(Context context) {
-        super(context, "JITDB", null, 1);
+        super(context, "NEWNAME", null, 1);
     }
 
     @Override

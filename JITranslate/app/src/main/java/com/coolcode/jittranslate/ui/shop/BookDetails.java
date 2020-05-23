@@ -49,9 +49,9 @@ public class BookDetails extends Fragment {
     public BookDetails() {
     }
 
-    public static BookDetails newInstance(String book_thumbnail, String book_title, String book_category,
-                                          String book_rating, String book_author, String book_price, String book_buy,
-                                          String book_preview, String book_description) {
+    public static Fragment newInstance(String book_thumbnail, String book_title, String book_category,
+                                       String book_rating, String book_author, String book_price, String book_buy,
+                                       String book_preview, String book_description) {
         BookDetails fragment = new BookDetails();
         Bundle args = new Bundle();
         Log.d("CHOSEN FROM BOOKDETAILS", book_title);
