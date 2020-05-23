@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ImageView
+        android:id="@+id/client_book_cover"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_client_book_cover"
+        tools:src="@drawable/ic_client_book_cover" />
+
+
+    <TextView
+        android:id="@+id/client_book_name"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:background="@android:color/transparent"
+        style="@style/TextAppearance.JITranslate.Body2"
+        tools:text="Very very very very very long name of the buyBook"
+        />
+
+    <TextView
+        android:id="@+id/client_book_author"
+        android:layout_gravity="center"
+
+        android:paddingLeft="@dimen/page_number_padding"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:background="@android:color/transparent"
+        style="@style/TextAppearance.JITranslate.Body1"
+        tools:text="Author Author"
+        />
+
+</LinearLayout>

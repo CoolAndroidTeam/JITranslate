@@ -20,6 +20,7 @@ import com.coolcode.jittranslate.database.JITDataBase;
 import com.coolcode.jittranslate.utils.Constants;
 import com.coolcode.jittranslate.utils.FileReader;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.storage.FirebaseStorage;
 
 import java.io.File;
 

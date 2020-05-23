@@ -23,12 +23,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.coolcode.jittranslate.R;
-import com.coolcode.jittranslate.utils.TextOrPicture;
 import com.coolcode.jittranslate.viewentities.ClientBook;
 import com.coolcode.jittranslate.views.bookview.DataAdapterBookView;
-import com.kursx.parser.fb2.Binary;
-
-import java.util.ArrayList;
 
 import me.zhanghai.android.fastscroll.FastScrollerBuilder;
 
