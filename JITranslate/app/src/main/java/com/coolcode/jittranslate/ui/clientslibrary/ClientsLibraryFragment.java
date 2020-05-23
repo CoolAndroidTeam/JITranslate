@@ -60,7 +60,10 @@ public class ClientsLibraryFragment extends Fragment {
     private void createData(ArrayList<BookDBModel> dbbooks) {
 
         data = new ArrayList<>();
-        dbbooks.forEach(bookDBModel -> this.data.add(new ClientBook(bookDBModel.getName(), bookDBModel.getAuthor())));
+        for (int i=0; i<dbbooks.size(); i++) {
+            BookDBModel bookDBModel = dbbooks.get(i);
+            this.data.add(new ClientBook(bookDBModel.getName(), bookDBModel.getAuthor()));
+        }
     }
 
     public ClientBooksListener getClientLibraryListenerActivity() {

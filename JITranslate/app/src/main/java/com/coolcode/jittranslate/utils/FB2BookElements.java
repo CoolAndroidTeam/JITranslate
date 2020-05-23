@@ -37,7 +37,9 @@ public class FB2BookElements {
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void createPages() {
         final ArrayList<Section> sections = book.getBody().getSections();
-        sections.forEach(this::iterateSection);
+        for (Section s : sections) {
+            this.iterateSection(s);
+        }
         if (!currentString.equals("")) this.pages.add(new TextOrPicture(currentString));
     }
 
