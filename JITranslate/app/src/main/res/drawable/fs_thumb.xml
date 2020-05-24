@@ -6,7 +6,7 @@
     android:tint="?colorControlActivated">
 
     <padding android:top="@dimen/thumb_padding" android:bottom="@dimen/thumb_padding" />
-
+    <corners android:radius="@dimen/thumb_back_width" />
     <size android:width="@dimen/thumb_width" android:height="@dimen/thumb_height" />
 
     <solid android:color="@android:color/white" />

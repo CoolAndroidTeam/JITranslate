@@ -17,6 +17,7 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.coolcode.jittranslate.database.JITDataBase;
+import com.coolcode.jittranslate.database.UserBooksStorage;
 import com.coolcode.jittranslate.utils.Constants;
 import com.coolcode.jittranslate.utils.FileReader;
 import com.google.android.material.navigation.NavigationView;
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity{
         NavigationUI.setupWithNavController(navView, navController);
 
         new JITDataBase(getBaseContext());
+        new UserBooksStorage(getExternalFilesDir(null));
         setDisplayMetrics();
 
         addBooksToExtStorage();

@@ -7,12 +7,12 @@ public class JITDataBase {
 
     private static SQLiteDatabase dbWrite;
     private static SQLiteDatabase dbRead;
-    DataBaseCreator dataBaseCreator;
+    JITDataBaseCreator JITDataBaseCreator;
 
     public JITDataBase(Context context) {
-        dataBaseCreator = new DataBaseCreator(context);
-        dbWrite = dataBaseCreator.getWritableDatabase();
-        dbRead = dataBaseCreator.getReadableDatabase();
+        JITDataBaseCreator = new JITDataBaseCreator(context);
+        dbWrite = JITDataBaseCreator.getWritableDatabase();
+        dbRead = JITDataBaseCreator.getReadableDatabase();
     }
 
     public static SQLiteDatabase getDbWrite() {

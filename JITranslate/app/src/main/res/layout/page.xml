@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:background="@android:color/transparent"
-            style="@style/TextAppearance.JITranslate.Body1"
+            style="@style/TextAppearance.JITranslate.BookPage"
             tools:text="Some interesting texxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxt"
             />
 

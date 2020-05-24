@@ -4,7 +4,6 @@
     android:shape="rectangle"
     android:tint="?colorControlNormal">
 
-    <corners android:radius="@dimen/thumb_back_width" />
     <size android:width="@dimen/thumb_back_width" />
     <solid android:color="@android:color/transparent" />
 </shape>

@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/navigation_library"
-        android:icon="@drawable/ic_books"
+        android:icon="@drawable/ic_bookshelf"
         android:title="@string/my_library" />
 
     <item
@@ -19,11 +19,11 @@
 
     <item
         android:id="@+id/navigation_study"
-        android:icon="@drawable/ic_study"
+        android:icon="@drawable/ic_school"
         android:title="@string/study" />
     <item
         android:id="@+id/navigation_forum"
-        android:icon="@drawable/ic_forum"
+        android:icon="@drawable/ic_group"
         android:title="@string/forum" />
 
 </menu>

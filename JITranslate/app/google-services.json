@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "959416058762",
+    "firebase_url": "https://jitranslate.firebaseio.com",
+    "project_id": "jitranslate",
+    "storage_bucket": "jitranslate.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:959416058762:android:368ddf8e817db6306e7e73",
+        "android_client_info": {
+          "package_name": "com.coolcode.jitranslate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "959416058762-lg2e81ailvk5no53uefhsf01q1tp4s77.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBg--UTyP3TY59IzIyhbeCdwgPG-Rrcx6g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "959416058762-lg2e81ailvk5no53uefhsf01q1tp4s77.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

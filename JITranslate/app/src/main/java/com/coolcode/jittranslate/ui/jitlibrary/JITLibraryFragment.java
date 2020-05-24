@@ -16,31 +16,31 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.coolcode.jittranslate.R;
 import com.coolcode.jittranslate.ui.bookview.BookViewModel;
 import com.coolcode.jittranslate.viewentities.ClientBook;
+import com.coolcode.jittranslate.viewentities.JITBook;
 import com.coolcode.jittranslate.views.clientlibrary.DataAdapterClientsLibrary;
+import com.coolcode.jittranslate.views.jitlibrary.DataAdapterJITLibrary;
 
 import java.util.ArrayList;
 
 public class JITLibraryFragment extends Fragment {
 
     private JITLibraryViewModel jitLibraryViewModel;
-    private BookViewModel bookViewModel;
-    private ArrayList<ClientBook> booksListData;
+    private ArrayList<JITBook> booksListData;
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         jitLibraryViewModel = new ViewModelProvider(requireActivity()).get(JITLibraryViewModel.class);
-        bookViewModel =  new ViewModelProvider(requireActivity()).get(BookViewModel.class);
 
         View mainView = inflater.inflate(R.layout.fragment_client_library, container, false);
 
         RecyclerView recyclerView = mainView.findViewById(R.id.client_books_list);
 
-        jitLibraryViewModel.getClientBookList().observe(getViewLifecycleOwner(), new androidx.lifecycle.Observer<ArrayList<ClientBook>>() {
+        jitLibraryViewModel.getJITBookList().observe(getViewLifecycleOwner(), new androidx.lifecycle.Observer<ArrayList<JITBook>>() {
             @Override
-            public void onChanged(ArrayList<ClientBook> booksList) {
+            public void onChanged(ArrayList<JITBook> booksList) {
                 booksListData = booksList;
-                DataAdapterClientsLibrary adapter = new DataAdapterClientsLibrary(JITLibraryFragment.this, booksList);
+                DataAdapterJITLibrary adapter = new DataAdapterJITLibrary(JITLibraryFragment.this, booksList);
 
                 recyclerView.setAdapter(adapter);
                 int spanCount = getResources().getInteger(R.integer.span_count);
@@ -50,10 +50,4 @@ public class JITLibraryFragment extends Fragment {
         });
         return mainView;
     }
-
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    public void setSelectedBook (ClientBook book) {
-        bookViewModel.selectClientBook(book);
-    }
-
 }

@@ -30,9 +30,9 @@
 
     <fragment
         android:id="@+id/navigation_jit_library"
-        android:name="com.coolcode.jittranslate.ui.bookview.BookViewFragment"
+        android:name="com.coolcode.jittranslate.ui.jitlibrary.JITLibraryFragment"
         android:label="JIT books"
-        tools:layout="@layout/bookview">
+        tools:layout="@layout/fragment_jit_library">
     </fragment>
 
 

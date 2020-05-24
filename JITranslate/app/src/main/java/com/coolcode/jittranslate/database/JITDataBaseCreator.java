@@ -7,11 +7,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-public class DataBaseCreator extends SQLiteOpenHelper {
+public class JITDataBaseCreator extends SQLiteOpenHelper {
 
     private static final String insertHelpValues = "INSERT INTO books (name, author, page) VALUES ('Tom Sawyer', 'Mark Twain', 1), ('Alice In Wonderland', 'Lewis Carroll', 1), ('Don Kihot', 'Migel Servantes', 1), ('The Thirteenth Tale', 'Diane Setterfield', 1), ('Dracula', 'Bram Stoker', 1), ('The Canterville Ghost', 'Oscar Wilde', 1);";
 
-    public DataBaseCreator(Context context) {
+    public JITDataBaseCreator(Context context) {
         super(context, "NEWNAME", null, 1);
     }
 

@@ -24,11 +24,20 @@
 
     </style>
 
-    <style name="TextAppearance.JITranslate.Body1" parent="TextAppearance.AppCompat.Body1">
+    <style name="TextAppearance.JITranslate.BookPage" parent="TextAppearance.AppCompat.Medium">
         <item name="fontFamily">@font/fasthand_regular</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:textSize">@dimen/font_text_standart</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:textColor">@color/textColorDark</item>
+    </style>
+
+    <style name="TextAppearance.JITranslate.Body1" parent="TextAppearance.AppCompat.Body1">
+        <item name="fontFamily">@font/fasthand_regular</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">@dimen/font_text_small</item>
         <item name="android:letterSpacing">0</item>
         <item name="android:textColor">@color/textColorDark</item>
     </style>
@@ -38,15 +47,24 @@
         <item name="android:textStyle">normal</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:textSize">@dimen/font_text_standart</item>
-        <item name="android:letterSpacing">0.1</item>
+        <item name="android:letterSpacing">0</item>
         <item name="android:textColor">@color/textColorDark</item>
+    </style>
+
+    <style name="TextAppearance.JITranslate.Button" parent="TextAppearance.AppCompat.Widget.Button">
+        <item name="fontFamily">@font/prompt_regular</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">@dimen/font_text_small</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:textColor">@color/textColor</item>
     </style>
 
     <style name="TextAppearance.JITranslate.PageNumber" parent="TextAppearance.AppCompat.Small">
         <item name="fontFamily">@font/prompt_regular</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:textSize">@dimen/font_page_number</item>
+        <item name="android:textSize">@dimen/font_text_small</item>
         <item name="android:letterSpacing">0</item>
         <item name="android:textColor">@color/textColorPale</item>
     </style>

@@ -2,7 +2,7 @@
     <string name="app_name">JITranslate</string>
     <string name="title_activity">JITranslate</string>
     <string name="my_library">my library</string>
-    <string name="jit_library">JITranslate library</string>
+    <string name="jit_library">jitranslate library</string>
     <string name="shop">google shop</string>
     <string name="study">unknown words</string>
     <string name="forum">books forum</string>
@@ -15,4 +15,6 @@
     <string name="search_button">search_button</string>
     <string name="open_menu_button">open_menu_button</string>
     <string name="client_library_defult_text">Here will be your books</string>
+    <string name="download_button">download</string>
+    <string name="cancel_button">cancel</string>
 </resources>

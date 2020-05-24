@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <ImageView
-        android:id="@+id/client_book_cover"
+        android:id="@+id/jit_book_cover"
         android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,7 +15,7 @@
 
 
     <TextView
-        android:id="@+id/client_book_name"
+        android:id="@+id/jit_book_name"
         android:gravity="center"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
@@ -25,9 +25,8 @@
         />
 
     <TextView
-        android:id="@+id/client_book_author"
+        android:id="@+id/jit_book_author"
         android:layout_gravity="center"
-
         android:paddingLeft="@dimen/page_number_padding"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
@@ -35,6 +34,25 @@
         android:background="@android:color/transparent"
         style="@style/TextAppearance.JITranslate.Body1"
         tools:text="Author Author"
+        />
+
+    <Button
+        android:id="@+id/jit_book_download_btn"
+        style="@style/TextAppearance.JITranslate.Button"
+        android:layout_width="@dimen/button_download_width"
+        android:layout_height="@dimen/button_download_height"
+        android:layout_gravity="end"
+        android:background="@drawable/download_btn"
+        android:text="@string/download_button"
+        android:visibility="visible"/>
+
+    <ImageView
+        android:id="@+id/jit_book_done_ic"
+        android:layout_width="@dimen/button_download_height"
+        android:layout_height="@dimen/button_download_height"
+        android:background="@drawable/ic_done"
+        android:layout_gravity="end"
+        android:visibility="gone"
         />
 
 </LinearLayout>
