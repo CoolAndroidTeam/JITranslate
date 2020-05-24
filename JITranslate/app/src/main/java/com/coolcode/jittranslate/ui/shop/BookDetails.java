@@ -23,8 +23,6 @@ import java.util.Objects;
 
 
 public class BookDetails extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String THUMBNAIL = "thumbnail";
     private static final String TITLE = "title";
     private static final String CATEGORIES = "categories";
