@@ -15,7 +15,7 @@ public class JITBook implements Serializable {
     public JITBook (String coverFileName, boolean downloaded) {
         this.coverFileName = coverFileName;
         this.downloaded = downloaded;
-        new FilenameConstructor().createJITBook(coverFileName, this);
+        FilenameConstructor.createJITBook(coverFileName, this);
 
     }
 
@@ -25,6 +25,10 @@ public class JITBook implements Serializable {
 
     public String getAuthor() {
         return author;
+    }
+
+    public String getCoverFileName() {
+        return coverFileName;
     }
 
     public String getName() {

@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.coolcode.jittranslate.dbentities.BookDBModel;
 import com.coolcode.jittranslate.viewentities.ClientBook;
+import com.coolcode.jittranslate.viewentities.JITBook;
 
 import java.util.ArrayList;
 
@@ -39,5 +40,12 @@ public class ClientsLibraryViewModel extends AndroidViewModel {
         }
         clientBookList.setValue(data);
     }
+
+    public void updateBookList(JITBook jitBook) {
+        ArrayList<ClientBook> currentList = clientBookList.getValue();
+        currentList.add(new ClientBook(jitBook.getName(), jitBook.getAuthor()));
+        clientBookList.postValue(currentList);
+    }
+
 
 }

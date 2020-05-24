@@ -5,21 +5,17 @@ import android.database.sqlite.SQLiteDatabase;
 
 public class JITDataBase {
 
-    private static SQLiteDatabase dbWrite;
-    private static SQLiteDatabase dbRead;
-    JITDataBaseCreator JITDataBaseCreator;
+    private static JITDataBaseCreator JITDataBaseCreator;
 
     public JITDataBase(Context context) {
         JITDataBaseCreator = new JITDataBaseCreator(context);
-        dbWrite = JITDataBaseCreator.getWritableDatabase();
-        dbRead = JITDataBaseCreator.getReadableDatabase();
     }
 
     public static SQLiteDatabase getDbWrite() {
-        return dbWrite;
+        return JITDataBaseCreator.getWritableDatabase();
     }
 
-    public static SQLiteDatabase getDbRead() {
-        return dbRead;
+    public static SQLiteDatabase getDbRead(){
+        return JITDataBaseCreator.getReadableDatabase();
     }
 }

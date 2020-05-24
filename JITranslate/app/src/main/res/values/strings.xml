@@ -17,4 +17,7 @@
     <string name="client_library_defult_text">Here will be your books</string>
     <string name="download_button">download</string>
     <string name="cancel_button">cancel</string>
+
+    <string name="learn_button">learn</string>
+    <string name="close_button">close</string>
 </resources>

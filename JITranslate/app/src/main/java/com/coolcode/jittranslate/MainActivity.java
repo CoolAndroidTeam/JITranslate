@@ -16,12 +16,12 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.coolcode.jittranslate.database.JITBooksShop;
 import com.coolcode.jittranslate.database.JITDataBase;
 import com.coolcode.jittranslate.database.UserBooksStorage;
 import com.coolcode.jittranslate.utils.Constants;
 import com.coolcode.jittranslate.utils.FileReader;
 import com.google.android.material.navigation.NavigationView;
-import com.google.firebase.storage.FirebaseStorage;
 
 import java.io.File;
 
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity{
 
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_bottom_menu);
+        setContentView(R.layout.activity_main);
         NavigationView navView = findViewById(R.id.nav_view);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity{
         NavigationUI.setupWithNavController(navView, navController);
 
         new JITDataBase(getBaseContext());
+        new JITBooksShop();
         new UserBooksStorage(getExternalFilesDir(null));
         setDisplayMetrics();
 

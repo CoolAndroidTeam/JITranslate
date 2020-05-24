@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="@dimen/book_padding"
     android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -21,6 +22,7 @@
         android:layout_width="match_parent"
         android:background="@android:color/transparent"
         style="@style/TextAppearance.JITranslate.Body2"
+        android:lines="1"
         tools:text="Very very very very very long name of the buyBook"
         />
 
@@ -36,6 +38,14 @@
         tools:text="Author Author"
         />
 
+    <LinearLayout
+        android:layout_marginEnd="@dimen/buttons_margin"
+        android:padding="@dimen/buttons_padding"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:orientation="horizontal">
+
     <Button
         android:id="@+id/jit_book_download_btn"
         style="@style/TextAppearance.JITranslate.Button"
@@ -44,15 +54,16 @@
         android:layout_gravity="end"
         android:background="@drawable/download_btn"
         android:text="@string/download_button"
-        android:visibility="visible"/>
+        android:visibility="visible" />
 
     <ImageView
         android:id="@+id/jit_book_done_ic"
-        android:layout_width="@dimen/button_download_height"
-        android:layout_height="@dimen/button_download_height"
+        android:layout_width="@dimen/icon_downloaded_size"
+        android:layout_height="@dimen/icon_downloaded_size"
         android:background="@drawable/ic_done"
         android:layout_gravity="end"
         android:visibility="gone"
         />
+    </LinearLayout>
 
 </LinearLayout>

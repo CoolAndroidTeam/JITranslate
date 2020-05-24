@@ -1,5 +1,6 @@
 package com.coolcode.jittranslate.dbentities;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -16,6 +17,12 @@ public class BookDBModel {
     private String name;
     private String author;
     private Integer page = 0;
+    private static String NAME_COLUMN = "name";
+    private static String AUTHOR_COLUMN = "author";
+    private static String PAGE_COLUMN = "page";
+    private static String TABLE = "books";
+    private static Integer WRONGID = -1;
+
 
     public BookDBModel(String name, String author) {
         this.name = name;
@@ -54,13 +61,31 @@ public class BookDBModel {
         return allBooks;
     }
 
-    private int checkBookId() throws Exception {
+    public void addBook() throws Exception {
+        SQLiteDatabase dataBase = JITDataBase.getDbWrite();
+        try {
+            int id = this.checkBookId();
+            if (id != WRONGID) {
+                throw new Exception("book exists");
+            }
+            ContentValues values = new ContentValues();
+            values.put(NAME_COLUMN, this.name);
+            values.put(AUTHOR_COLUMN, this.author);
+            values.put(PAGE_COLUMN, String.valueOf(1));
+            long newRowId = dataBase.insert(TABLE, null, values);
+            Log.d("database_add_book", String.valueOf(newRowId));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private int checkBookId() {
         SQLiteDatabase dataBase = JITDataBase.getDbRead();
         String[] whereArgs = new String[]{
                 this.author,
                 this.name
         };
-        int id = -1;
+        int id = WRONGID;
         try {
             dataBase.beginTransaction();
             String queryString =
@@ -68,7 +93,6 @@ public class BookDBModel {
             Cursor rows = dataBase.rawQuery(queryString, whereArgs);
             if (rows.getCount() == 0) {
                 rows.close();
-                throw new Exception("empty book query");
             } else {
                 rows.moveToNext();
                 id = rows.getInt(0);
@@ -83,12 +107,15 @@ public class BookDBModel {
         return id;
     }
 
-    public void savePage(int page) {
+    public void savePage(int page) throws Exception {
         this.page = page;
         SQLiteDatabase dataBase = JITDataBase.getDbWrite();
         try {
             dataBase.beginTransaction();
             int id = this.checkBookId();
+            if (id == WRONGID) {
+                throw new Exception("empty book query");
+            }
             String[] updateArgs = new String[] {
                     this.page.toString(),
                     String.valueOf(id)
@@ -97,7 +124,7 @@ public class BookDBModel {
                     "UPDATE books SET page = ? WHERE id = ?";
             dataBase.execSQL(updateString, updateArgs);
             dataBase.setTransactionSuccessful();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             dataBase.endTransaction();

@@ -9,25 +9,40 @@ public class FilenameConstructor {
         COVER
     }
 
-    public static final String splitter = "_";
-    public static final String nameSplitter = "-";
-    public static final String dot = ".";
-    public static final String bookExt = ".fb2";
-    public static final String coverExt = ".png";
+    private static final String splitter = "_";
+    private static final String nameSplitter = "-";
+    private static final String dot = "\\.";
+    private static final String bookExt = ".fb2";
+    private static final String coverExt = ".png";
 
-
-    public FilenameConstructor() {
+    public static String constructPlainFileName(String coverFilename) {
+        return coverFilename.split(dot)[0];
     }
 
-    public String constructBookFileName(String author, String name) {
-        return this.constructFileName(author, name, FileType.BOOK);
+
+    public static String constructBookFileName(String author, String name) {
+        return constructFileName(author, name, FileType.BOOK);
     }
 
-    public String constructCoverFileName(String author, String name) {
-        return this.constructFileName(author, name, FileType.COVER);
+    public static String constructBookFileName(String coverFilename) {
+        String bookFilename = "";
+        String[] bookName = coverFilename.split(dot);
+        bookFilename += bookName[0] + bookExt;
+        return bookFilename;
     }
 
-    public String constructFileName(String author, String name, FileType type) {
+    public static String constructCoverFileName(String author, String name) {
+        return constructFileName(author, name, FileType.COVER);
+    }
+
+    public static String constructCoverFileName(String bookFilename) {
+        String coverFilename = "";
+        String[] bookName = bookFilename.split(dot);
+        coverFilename += bookName[0] + coverExt;
+        return coverFilename;
+    }
+
+    private static String constructFileName(String author, String name, FileType type) {
        String filename = "";
        String[] authorSplit = author.split(" ");
        int lastSymbol =  authorSplit.length - 1;
@@ -53,7 +68,7 @@ public class FilenameConstructor {
        return filename;
     }
 
-    public void createJITBook(String bookCoverFilename, JITBook jitBook) {
+    public static void createJITBook(String bookCoverFilename, JITBook jitBook) {
         String[] bookName = bookCoverFilename.split(dot);
         String[] nameAndAuthor = bookName[0].split(nameSplitter);
         String author = nameAndAuthor[0];
@@ -74,5 +89,13 @@ public class FilenameConstructor {
         nameBook += nameSplit[lastSymbol];
         jitBook.setAuthor(authorBook);
         jitBook.setName(nameBook);
+    }
+
+    public static String getCoverExt() {
+        return coverExt.substring(1);
+    }
+
+    public static String getBookExt() {
+        return bookExt.substring(1);
     }
 }

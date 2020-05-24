@@ -40,12 +40,8 @@ public class BookViewModel extends AndroidViewModel {
     public void selectClientBook(ClientBook clientBook) {
         this.clientBook = clientBook;
         this.createBookDB();
-        try {
-            this.clientBook.setPage(this.getBookPage());
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+        this.clientBook.setPage(this.getBookPage());
+
         if (clientBook.getDataPages() == null) {
             this.setClientBookPages();
         }
@@ -72,11 +68,22 @@ public class BookViewModel extends AndroidViewModel {
     }
 
     public void saveBookPage(int page) {
-        this.bookDBModel.savePage(page);
+        try {
+            this.bookDBModel.savePage(page);
+        } catch (Exception e) {
+            Log.d("saving page", e.getMessage());
+        }
+
     }
 
-    private int getBookPage() throws Exception {
-        return this.bookDBModel.getPage();
+    private int getBookPage() {
+        try {
+            return this.bookDBModel.getPage();
+        }
+        catch (Exception e) {
+            Log.d("getting page", e.getMessage());
+        }
+        return 1;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)

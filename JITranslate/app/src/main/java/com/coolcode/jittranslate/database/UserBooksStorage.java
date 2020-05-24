@@ -36,4 +36,13 @@ public class UserBooksStorage {
         }
         return file;
     }
+
+
+    public static String getClientsBooksCoversFullDir() {
+        return externalStorageDir + File.separator + clientsBooksCoversDir;
+    }
+
+    public static String getClientsBooksFullDir() {
+        return externalStorageDir + File.separator + clientsBooksDir;
+    }
 }

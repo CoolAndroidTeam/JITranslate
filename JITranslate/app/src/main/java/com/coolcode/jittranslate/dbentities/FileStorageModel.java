@@ -3,26 +3,26 @@ package com.coolcode.jittranslate.dbentities;
 import com.google.firebase.storage.StorageReference;
 
 public class FileStorageModel {
-    private String filename;
-    private boolean downloaded;
+    private StorageReference book;
+    private StorageReference cover;
 
-    public FileStorageModel(String filename) {
-
+    public FileStorageModel(StorageReference cover) {
+        this.cover = cover;
     }
 
-    public boolean isDownloaded() {
-        return downloaded;
+    public StorageReference getBook() {
+        return book;
     }
 
-    public String getFilename() {
-        return filename;
+    public StorageReference getCover() {
+        return cover;
     }
 
-    public void setFilename(String filename) {
-        this.filename = filename;
+    public void setBook(StorageReference book) {
+        this.book = book;
     }
 
-    public void setDownloaded(boolean downloaded) {
-        this.downloaded = downloaded;
+    public void setCover(StorageReference cover) {
+        this.cover = cover;
     }
 }

@@ -5,34 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/dialog_book_cover"
-        android:layout_gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_client_book_cover"
-        tools:src="@drawable/ic_client_book_cover" />
-
     <TextView
-        android:id="@+id/dialog_book_name"
+        android:id="@+id/dialog_translation"
         android:gravity="center"
+        android:padding="@dimen/translation_padding"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:background="@android:color/transparent"
+        android:background="@drawable/ic_client_book_cover"
         style="@style/TextAppearance.JITranslate.Body2"
-        tools:text="Very very very very very long name of the buyBook"
-        />
-
-    <TextView
-        android:id="@+id/dialog_book_author"
-        android:layout_gravity="center"
-        android:paddingLeft="@dimen/page_number_padding"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:gravity="center"
-        android:background="@android:color/transparent"
-        style="@style/TextAppearance.JITranslate.Body1"
-        tools:text="Author Author"
+        tools:text="Very very very very very long name of the book"
         />
 
     <LinearLayout
@@ -43,23 +24,23 @@
         android:layout_gravity="end"
         android:orientation="horizontal">
         <Button
-            android:id="@+id/dialog_download_btn"
+            android:id="@+id/dialog_learn_btn"
             style="@style/TextAppearance.JITranslate.Button"
             android:layout_width="@dimen/button_download_width"
             android:layout_height="@dimen/button_download_height"
             android:layout_gravity="end"
             android:background="@drawable/download_btn"
-            android:text="@string/download_button"
+            android:text="@string/learn_button"
             android:visibility="visible"/>
         <Button
-            android:id="@+id/dialog_cancel_btn"
+            android:id="@+id/dialog_close_button"
             style="@style/TextAppearance.JITranslate.Button"
             android:layout_width="@dimen/button_download_width"
             android:layout_height="@dimen/button_download_height"
             android:layout_gravity="end"
             android:background="@android:color/transparent"
             android:textColor="@drawable/cancel_btn"
-            android:text="@string/cancel_button"
+            android:text="@string/close_button"
             android:visibility="visible"/>
     </LinearLayout>
 

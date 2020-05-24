@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -19,23 +20,26 @@ import com.coolcode.jittranslate.viewentities.ClientBook;
 import com.coolcode.jittranslate.viewentities.JITBook;
 import com.coolcode.jittranslate.views.clientlibrary.DataAdapterClientsLibrary;
 import com.coolcode.jittranslate.views.jitlibrary.DataAdapterJITLibrary;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
 public class JITLibraryFragment extends Fragment {
 
     private JITLibraryViewModel jitLibraryViewModel;
+    private JITDialogViewModel jitDialogViewModel;
     private ArrayList<JITBook> booksListData;
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         jitLibraryViewModel = new ViewModelProvider(requireActivity()).get(JITLibraryViewModel.class);
+        jitDialogViewModel = new ViewModelProvider(requireActivity()).get(JITDialogViewModel.class);
+
 
         View mainView = inflater.inflate(R.layout.fragment_client_library, container, false);
 
         RecyclerView recyclerView = mainView.findViewById(R.id.client_books_list);
-
         jitLibraryViewModel.getJITBookList().observe(getViewLifecycleOwner(), new androidx.lifecycle.Observer<ArrayList<JITBook>>() {
             @Override
             public void onChanged(ArrayList<JITBook> booksList) {
@@ -48,6 +52,17 @@ public class JITLibraryFragment extends Fragment {
                 recyclerView.setLayoutManager(layoutManager);
             }
         });
+
         return mainView;
+    }
+
+    public StorageReference getBookCoverRef(String bookCover) {
+        return jitLibraryViewModel.getBookReference(bookCover);
+    }
+
+    public void openDialog(JITBook jitBook) {
+        jitDialogViewModel.setChosenBook(jitBook);
+        DialogFragment dialogFragment = new JITDialogFragment();
+        dialogFragment.show(getActivity().getSupportFragmentManager(), "dialog");
     }
 }
