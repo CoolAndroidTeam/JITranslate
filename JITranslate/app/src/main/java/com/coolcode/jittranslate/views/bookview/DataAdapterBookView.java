@@ -1,7 +1,12 @@
 package com.coolcode.jittranslate.views.bookview;
 
 import android.graphics.Bitmap;
+import android.text.Spannable;
+import android.text.TextPaint;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +20,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.coolcode.jittranslate.R;
 import com.coolcode.jittranslate.ui.bookview.BookViewFragment;
 import com.coolcode.jittranslate.utils.BitmapCreator;
-import com.coolcode.jittranslate.utils.TextOrPicture;
+import com.coolcode.jittranslate.utils.TextUtils;
+import com.coolcode.jittranslate.viewentities.TextOrPicture;
 
 import java.util.ArrayList;
 
@@ -42,7 +48,8 @@ public class DataAdapterBookView extends RecyclerView.Adapter<BookViewHolder> {
         TextOrPicture top = bookPages.get(position);
         if (top.isText()) {
             String text = top.getText();
-            pageView.setText(text);
+            createClickableWords(pageView, text);
+//            pageView.setText(text);
             imageView.setImageDrawable(null);
         } else {
             pageView.setText("");
@@ -55,6 +62,32 @@ public class DataAdapterBookView extends RecyclerView.Adapter<BookViewHolder> {
         }
         TextView pageNumView = holder.getPageNumView();
         pageNumView.setText(String.valueOf(position+1));
+    }
+
+    private void createClickableWords(TextView textView, String text) {
+        String definition = text.trim();
+        textView.setMovementMethod(LinkMovementMethod.getInstance());
+        textView.setText(definition, TextView.BufferType.SPANNABLE);
+
+        Spannable spans = (Spannable) textView.getText();
+        ArrayList<Integer> indices = TextUtils.getWhitespaceIndexes(definition);
+        createSpans(spans, indices);
+    }
+
+    private void createSpans(Spannable spans, ArrayList<Integer> indices) {
+        int start = 0;
+        int end = 0;
+        for (int i=0; i<=indices.size(); i++) {
+
+            ClickableSpan clickSpan = new TextSpan(fragment);
+            if (i<indices.size()) {
+                end = indices.get(i);
+            } else {
+                end = spans.length();
+            };
+            spans.setSpan(clickSpan, start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            start = end + 1;
+        }
     }
 
     @Override

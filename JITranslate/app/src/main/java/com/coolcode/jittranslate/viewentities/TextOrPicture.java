@@ -1,4 +1,4 @@
-package com.coolcode.jittranslate.utils;
+package com.coolcode.jittranslate.viewentities;
 
 import com.kursx.parser.fb2.Image;
 
@@ -8,11 +8,11 @@ public class TextOrPicture {
     ArrayList<Image> images = new ArrayList<>();
     String text = null;
 
-    TextOrPicture(String string) {
+    public TextOrPicture(String string) {
         this.text = string;
     }
 
-    TextOrPicture(ArrayList<Image> images) {
+    public TextOrPicture(ArrayList<Image> images) {
         this.images = images;
     }
 

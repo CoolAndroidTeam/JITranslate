@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,12 +13,8 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.bumptech.glide.Glide;
 import com.coolcode.jittranslate.R;
-import com.coolcode.jittranslate.ui.clientslibrary.ClientsLibraryViewModel;
-import com.coolcode.jittranslate.ui.jitlibrary.JITDialogViewModel;
-import com.coolcode.jittranslate.viewentities.JITBook;
-import com.google.firebase.storage.StorageReference;
+import com.coolcode.jittranslate.viewentities.TranslationWord;
 
 public class TranslateDialogFragment extends DialogFragment {
 
@@ -37,9 +32,9 @@ public class TranslateDialogFragment extends DialogFragment {
         close.setOnClickListener(
                 button -> dismiss());
 
-        translateDialogViewModel.getBook().observe(getViewLifecycleOwner(), new androidx.lifecycle.Observer<JITBook>() {
+        translateDialogViewModel.getTranslationWord().observe(getViewLifecycleOwner(), new androidx.lifecycle.Observer<TranslationWord>() {
             @Override
-            public void onChanged(JITBook jitBook) {
+            public void onChanged(TranslationWord translationWord) {
 
             }
         });

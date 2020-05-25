@@ -3,10 +3,10 @@ package com.coolcode.jittranslate.utils;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Build;
-import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
+import com.coolcode.jittranslate.viewentities.TextOrPicture;
 import com.kursx.parser.fb2.Element;
 import com.kursx.parser.fb2.FictionBook;
 import com.kursx.parser.fb2.P;

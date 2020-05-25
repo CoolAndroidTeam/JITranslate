@@ -1,49 +1,27 @@
 package com.coolcode.jittranslate.ui.bookview;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.MediatorLiveData;
 
-import com.coolcode.jittranslate.database.JITBooksShop;
-import com.coolcode.jittranslate.dbentities.BookDBModel;
-import com.coolcode.jittranslate.viewentities.JITBook;
-import com.google.firebase.storage.StorageReference;
+import com.coolcode.jittranslate.viewentities.TranslationWord;
 
 public class TranslateDialogViewModel extends AndroidViewModel {
 
-    private final MutableLiveData<JITBook> chosenBook = new MutableLiveData<>();
-    private BookDBModel bookDBModel;
+    private final MediatorLiveData<TranslationWord> translationWord = new MediatorLiveData<>();
 
     public TranslateDialogViewModel(@NonNull Application application) {
         super(application);
     }
 
-    public MutableLiveData<JITBook> getBook() {
-        return chosenBook;
+    public MediatorLiveData<TranslationWord> getTranslationWord() {
+        return translationWord;
     }
 
-    public void setChosenBook(JITBook jitBook) {
-        chosenBook.setValue(jitBook);
-        createBookDB(jitBook);
+    public void setTranslationWord(TranslationWord word) {
+        translationWord.setValue(word);
     }
 
-    public StorageReference getBookReference(String bookCover) {
-        return JITBooksShop.getBookCoverRef(bookCover);
-    }
-
-    public void saveBook(String bookCover) {
-        JITBooksShop.saveBook(bookCover);
-        try {
-            this.bookDBModel.addBook();
-        } catch (Exception e) {
-            Log.d("saving book", e.getMessage());
-        }
-    }
-
-    private void createBookDB(JITBook jitBook) {
-        this.bookDBModel = new BookDBModel(jitBook.getName(), jitBook.getAuthor());
-    }
 }

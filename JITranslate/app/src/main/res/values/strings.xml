@@ -6,6 +6,8 @@
     <string name="shop">google shop</string>
     <string name="study">unknown words</string>
     <string name="forum">books forum</string>
+    <string name="translate_text">Translate %1$s?</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

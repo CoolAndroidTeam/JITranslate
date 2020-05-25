@@ -1,6 +1,5 @@
 package com.coolcode.jittranslate.viewentities;
 
-import com.coolcode.jittranslate.utils.TextOrPicture;
 import com.kursx.parser.fb2.Binary;
 
 import java.io.Serializable;

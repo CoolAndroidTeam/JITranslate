@@ -10,6 +10,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,31 +27,37 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.coolcode.jittranslate.R;
 import com.coolcode.jittranslate.viewentities.ClientBook;
+import com.coolcode.jittranslate.viewentities.TranslationWord;
 import com.coolcode.jittranslate.views.bookview.DataAdapterBookView;
 
 import me.zhanghai.android.fastscroll.FastScrollerBuilder;
 
 public class BookViewFragment extends Fragment {
     private ClientBook clientBook;
+    View mainView;
+    ViewGroup mainContainer;
 
+    private TranslationWord translationWord;
     private BookViewModel bookViewModel;
+    private TranslateDialogViewModel translateDialogViewModel;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        View mainView = inflater.inflate(R.layout.bookview, container, false);
+        mainContainer = container;
+        mainView = inflater.inflate(R.layout.bookview, container, false);
         RecyclerView recyclerView = mainView.findViewById(R.id.pages_list);
         setFastScroll(mainView, recyclerView);
         addScrollListener(recyclerView);
 
+        translateDialogViewModel =  new ViewModelProvider(requireActivity()).get(TranslateDialogViewModel.class);
         bookViewModel =  new ViewModelProvider(requireActivity()).get(BookViewModel.class);
         bookViewModel.getSelectedClientBook().observe(getViewLifecycleOwner(), new androidx.lifecycle.Observer<ClientBook>() {
             @Override
             public void onChanged(ClientBook bookFragments) {
                 clientBook = bookFragments;
-                DataAdapterBookView adapter = new DataAdapterBookView(getTargetFragment(), bookFragments.getDataPages());
+                DataAdapterBookView adapter = new DataAdapterBookView(BookViewFragment.this, bookFragments.getDataPages());
 
                 recyclerView.setAdapter(adapter);
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -97,6 +106,18 @@ public class BookViewFragment extends Fragment {
         fastScrollerBuilder.setThumbDrawable(AppCompatResources.getDrawable(context, R.drawable.fs_thumb));
         fastScrollerBuilder.setPadding(10, 0, 0, 0);
         fastScrollerBuilder.build();
+    }
+
+    public void createPopUp(TranslationWord translationWord) {
+        translateDialogViewModel.setTranslationWord(translationWord);
+
+        RelativeLayout relativeLayout = mainView.findViewById(R.id.book_view_layout);
+        LayoutInflater inflater = getLayoutInflater();
+        LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.translate_pop_up, mainContainer, false);
+        TextView popupTranslation = linearLayout.findViewById(R.id.popup_translation);
+        String translationText = getString(R.string.translate_text, translationWord.getEnglishWord());
+        popupTranslation.setText(translationText);
+        relativeLayout.addView(linearLayout);
     }
 
 
