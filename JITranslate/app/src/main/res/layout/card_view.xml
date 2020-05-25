@@ -8,6 +8,7 @@
     android:orientation="vertical">
     <androidx.cardview.widget.CardView
         android:orientation="vertical"
+        android:id="@+id/card"
         android:background="@color/textColor"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

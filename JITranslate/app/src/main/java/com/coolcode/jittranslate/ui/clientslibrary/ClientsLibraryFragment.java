@@ -40,8 +40,12 @@ public class ClientsLibraryFragment extends Fragment {
             @Override
             public void onChanged(ArrayList<ClientBook> booksList) {
                 booksListData = booksList;
+                if (booksListData.size() == 0) {
+                    mainView.findViewById(R.id.default_text).setVisibility(View.VISIBLE);
+                } else {
+                    mainView.findViewById(R.id.default_text).setVisibility(View.GONE);
+                }
                 DataAdapterClientsLibrary adapter = new DataAdapterClientsLibrary(ClientsLibraryFragment.this, booksList);
-
                 recyclerView.setAdapter(adapter);
                 int spanCount = getResources().getInteger(R.integer.span_count);
                 GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), spanCount);

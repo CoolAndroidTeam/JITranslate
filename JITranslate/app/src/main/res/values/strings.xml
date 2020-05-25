@@ -22,4 +22,5 @@
 
     <string name="learn_button">learn</string>
     <string name="close_button">close</string>
+    <string name="client_library_text">Here will be your books</string>
 </resources>

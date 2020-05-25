@@ -14,6 +14,7 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.coolcode.jittranslate.R;
 import com.coolcode.jittranslate.ui.clientslibrary.ClientsLibraryFragment;
 import com.coolcode.jittranslate.utils.Constants;
@@ -55,8 +56,10 @@ public class DataAdapterClientsLibrary extends RecyclerView.Adapter<ClientsBooks
         File coverFile = new FileReader(this.fragment.getActivity().getAssets(), this.fragment.getActivity().getExternalFilesDir(null))
                 .createFile(Constants.clientsBooksCoversDir,imageFilename);
         if (coverFile.exists()) {
-            Bitmap bitmap = BitmapFactory.decodeFile(String.valueOf(coverFile));
-            clientBookCoverView.setImageBitmap(bitmap);
+            Glide.with(fragment.getContext())
+                    .load(coverFile).into(clientBookCoverView);
+//            Bitmap bitmap = BitmapFactory.decodeFile(String.valueOf(coverFile));
+//            clientBookCoverView.setImageBitmap(bitmap);
         }
     }
 

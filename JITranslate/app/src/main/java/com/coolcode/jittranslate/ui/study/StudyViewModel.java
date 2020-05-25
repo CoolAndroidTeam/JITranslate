@@ -2,6 +2,7 @@ package com.coolcode.jittranslate.ui.study;
 
 import android.app.Application;
 import android.os.Build;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -31,7 +32,9 @@ public class StudyViewModel extends AndroidViewModel {
         this.createWordsList();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public LiveData<List<Word>> getWordsList() {
+        this.updateWords();
         return wordsList;
     }
 
@@ -51,4 +54,16 @@ public class StudyViewModel extends AndroidViewModel {
         });
     }
 
+    public void deleteWord(String word, String translate) {
+        WordDBModel wordDBModel = new WordDBModel(word, translate);
+        try {
+            wordDBModel.deleteWord();
+        } catch (Exception e) {
+            Log.d("delete_word", e.getMessage());
+        }
+    }
+
+    private void updateWords() {
+        WordDBModel.getAllWords();
+    }
 }

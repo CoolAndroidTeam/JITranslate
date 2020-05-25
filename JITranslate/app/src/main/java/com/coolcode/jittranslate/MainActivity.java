@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity{
         new UserBooksStorage(getExternalFilesDir(null));
         setDisplayMetrics();
 
-        addBooksToExtStorage();
+        createExtStorageDirs();
         Log.d("activity", "onCreate");
     }
 
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity{
     }
 
 
-    private void addBooksToExtStorage() {
+    private void createExtStorageDirs() {
         File f = new File(getExternalFilesDir(null), Constants.clientsBooksDir);
         if (!f.exists()) {
             f.mkdirs();
@@ -96,9 +96,5 @@ public class MainActivity extends AppCompatActivity{
         if (!f.exists()) {
             f.mkdirs();
         }
-        FileReader fileReader = new FileReader(getAssets(), getExternalFilesDir(null));
-
-        fileReader.copyFilesFromAssetsToExternalStorage(Constants.assetsBooksDir, Constants.clientsBooksDir);
-        fileReader.copyFilesFromAssetsToExternalStorage(Constants.assetsBooksCoversDir, Constants.clientsBooksCoversDir);
     }
 }

@@ -92,9 +92,10 @@ public class WordDBModel {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+//        getWords();
     }
 
-    public void deleteWord(String word) throws Exception {
+    public void deleteWord() throws Exception {
         SQLiteDatabase dataBase = JITDataBase.getDbWrite();
         try {
             dataBase.beginTransaction();
@@ -103,7 +104,7 @@ public class WordDBModel {
                 throw new Exception("empty word query");
             }
             String[] deleteArgs = new String[] {
-                    word
+                    this.word
             };
             String deleteString =
                     "DELETE FROM words WHERE word = ?";
@@ -114,6 +115,7 @@ public class WordDBModel {
         } finally {
             dataBase.endTransaction();
         }
+//        getWords();
     }
 
     private int checkWordId() {
