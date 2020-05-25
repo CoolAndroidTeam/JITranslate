@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 class BookBuilder {
-    static List<Book> jsonParse(JsonObject root) {
+    static List<BuyBook> jsonParse(JsonObject root) {
 
-        List<Book> bookData = new ArrayList<>();
+        List<BuyBook> bookData = new ArrayList<>();
 
         JsonObject item;
         JsonObject volumeInfo;
@@ -143,7 +143,7 @@ class BookBuilder {
 
             }
 
-            bookData.add(new Book(smallThumbnail, title, category, avgRating, authors, price, description, buyLink, previewLink));
+            bookData.add(new BuyBook(smallThumbnail, title, category, avgRating, authors, price, description, buyLink, previewLink));
 
         }
         return bookData;

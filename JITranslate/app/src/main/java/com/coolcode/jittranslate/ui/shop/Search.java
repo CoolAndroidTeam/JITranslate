@@ -66,7 +66,7 @@ public class Search {
                 JsonObject root = response.body();
 
                 if (root.get("totalItems").getAsString() != "0") {
-                    List<Book> books;
+                    List<BuyBook> books;
                     books = jsonParse(root);
                     if (books != null && !books.isEmpty()) {
                         recyclerView.setVisibility(View.VISIBLE);
