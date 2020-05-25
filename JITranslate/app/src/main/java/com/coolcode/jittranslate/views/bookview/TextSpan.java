@@ -21,14 +21,14 @@ public class TextSpan extends ClickableSpan {
 
     public void updateDrawState(TextPaint drawSet) {
         //NO DRAW STATE NEEDED
-        }
+    }
 
     @Override
     public void onClick(@NonNull View view) {
-        TextView textView = (TextView) view;
+        LongTouchTextView textView = (LongTouchTextView) view;
         String rawWord = textView.getText().subSequence(textView.getSelectionStart(), textView.getSelectionEnd()).toString();
         String trimmedWord = TextUtils.trimSymbols(rawWord);
         Log.d("tapped on:", trimmedWord);
-        fragment.createPopUp(new TranslationWord(trimmedWord));
+        fragment.createPopUp(new TranslationWord(trimmedWord), textView.getTouchX(), textView.getTouchY());
     }
 };

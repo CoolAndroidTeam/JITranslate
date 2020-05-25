@@ -19,6 +19,7 @@ public class JITDataBaseCreator extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         Log.d("data_base", "Created Database");
         db.execSQL("CREATE TABLE IF NOT EXISTS books (id integer PRIMARY KEY AUTOINCREMENT, name text, author text, page integer);");
+        db.execSQL("CREATE TABLE IF NOT EXISTS words (id integer PRIMARY KEY AUTOINCREMENT, word text, translate text, language text);");
         db.execSQL(insertHelpValues);
     }
 

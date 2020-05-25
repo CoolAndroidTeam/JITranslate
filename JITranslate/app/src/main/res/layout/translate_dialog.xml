@@ -5,16 +5,37 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
+    <LinearLayout
+        android:layout_marginEnd="@dimen/dialog_buttons_margin"
+        android:paddingHorizontal="@dimen/buttons_padding"
+        android:paddingTop="@dimen/translation_padding_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/ic_translation"
+        android:orientation="vertical">
+
     <TextView
-        android:id="@+id/dialog_translation"
-        android:gravity="center"
+        android:id="@+id/dialog_original"
+        android:layout_gravity="center"
         android:padding="@dimen/translation_padding"
         android:layout_height="wrap_content"
-        android:layout_width="match_parent"
-        android:background="@drawable/ic_client_book_cover"
+        android:layout_width="wrap_content"
+        android:textColor="@color/colorAccent"
         style="@style/TextAppearance.JITranslate.Body2"
         tools:text="Very very very very very long name of the book"
         />
+
+        <TextView
+            android:id="@+id/dialog_translation"
+            android:layout_gravity="center"
+            android:padding="@dimen/translation_padding"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            style="@style/TextAppearance.JITranslate.Body2"
+            tools:text="Very very very very very long name of the book"
+            />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_marginEnd="@dimen/dialog_buttons_margin"

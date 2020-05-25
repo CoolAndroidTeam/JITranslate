@@ -17,6 +17,12 @@ public class Word {
     @Expose
     private String language;
 
+    public Word(String word, String translate, String language) {
+        this.word = word;
+        this.language = language;
+        this.translate = translate;
+    }
+
     public String getWord() {
         return word;
     }

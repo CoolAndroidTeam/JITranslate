@@ -7,7 +7,9 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -44,7 +46,7 @@ public class DataAdapterBookView extends RecyclerView.Adapter<BookViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull BookViewHolder holder, int position) {
         ImageView imageView = holder.getImageView();
-        TextView pageView = holder.getPageTextView();
+        LongTouchTextView pageView = holder.getPageTextView();
         TextOrPicture top = bookPages.get(position);
         if (top.isText()) {
             String text = top.getText();
@@ -64,7 +66,7 @@ public class DataAdapterBookView extends RecyclerView.Adapter<BookViewHolder> {
         pageNumView.setText(String.valueOf(position+1));
     }
 
-    private void createClickableWords(TextView textView, String text) {
+    private void createClickableWords(LongTouchTextView textView, String text) {
         String definition = text.trim();
         textView.setMovementMethod(LinkMovementMethod.getInstance());
         textView.setText(definition, TextView.BufferType.SPANNABLE);

@@ -18,24 +18,32 @@ import com.coolcode.jittranslate.viewentities.TranslationWord;
 
 public class TranslateDialogFragment extends DialogFragment {
 
-    private TranslateDialogViewModel translateDialogViewModel;
+    private BookViewModel bookViewModel;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        translateDialogViewModel = new ViewModelProvider(requireActivity()).get(TranslateDialogViewModel.class);
+        bookViewModel = new ViewModelProvider(requireActivity()).get(BookViewModel.class);
 
         View mainView = inflater.inflate(R.layout.translate_dialog, container, false);
         TextView translateView = mainView.findViewById(R.id.dialog_translation);
+        TextView originalView = mainView.findViewById(R.id.dialog_original);
+
         Button learn = mainView.findViewById(R.id.dialog_learn_btn);
         Button close = mainView.findViewById(R.id.dialog_close_button);
         close.setOnClickListener(
                 button -> dismiss());
+        learn.setOnClickListener(
+                button -> {
+                    bookViewModel.saveWord();
+                    dismiss();
+                });
 
-        translateDialogViewModel.getTranslationWord().observe(getViewLifecycleOwner(), new androidx.lifecycle.Observer<TranslationWord>() {
+        bookViewModel.getTranslationWord().observe(getViewLifecycleOwner(), new androidx.lifecycle.Observer<TranslationWord>() {
             @Override
             public void onChanged(TranslationWord translationWord) {
-
+                originalView.setText(translationWord.getEnglishWord());
+                translateView.setText(translationWord.getTranslatedWord());
             }
         });
 

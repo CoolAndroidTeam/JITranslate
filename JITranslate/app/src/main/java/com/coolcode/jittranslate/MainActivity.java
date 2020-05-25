@@ -18,6 +18,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.coolcode.jittranslate.database.JITBooksShop;
 import com.coolcode.jittranslate.database.JITDataBase;
+import com.coolcode.jittranslate.database.TranslationRepository;
 import com.coolcode.jittranslate.database.UserBooksStorage;
 import com.coolcode.jittranslate.utils.Constants;
 import com.coolcode.jittranslate.utils.FileReader;
@@ -53,7 +54,6 @@ public class MainActivity extends AppCompatActivity{
         setDisplayMetrics();
 
         addBooksToExtStorage();
-
         Log.d("activity", "onCreate");
     }
 

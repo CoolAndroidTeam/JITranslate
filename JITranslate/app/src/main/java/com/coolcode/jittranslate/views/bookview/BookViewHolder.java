@@ -12,7 +12,7 @@ import com.coolcode.jittranslate.R;
 
 public class BookViewHolder extends RecyclerView.ViewHolder {
 
-    private TextView pageTextView;
+    private LongTouchTextView pageTextView;
     private ImageView imageView;
     private TextView pageNumView;
 
@@ -23,7 +23,7 @@ public class BookViewHolder extends RecyclerView.ViewHolder {
         pageNumView = itemView.findViewById(R.id.page_number);
     }
 
-    public TextView getPageTextView() {
+    public LongTouchTextView getPageTextView() {
         return pageTextView;
     }
     public TextView getPageNumView() {

@@ -10,6 +10,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -20,13 +21,16 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.coolcode.jittranslate.R;
+import com.coolcode.jittranslate.ui.jitlibrary.JITDialogFragment;
 import com.coolcode.jittranslate.viewentities.ClientBook;
+import com.coolcode.jittranslate.viewentities.JITBook;
 import com.coolcode.jittranslate.viewentities.TranslationWord;
 import com.coolcode.jittranslate.views.bookview.DataAdapterBookView;
 
@@ -39,7 +43,6 @@ public class BookViewFragment extends Fragment {
 
     private TranslationWord translationWord;
     private BookViewModel bookViewModel;
-    private TranslateDialogViewModel translateDialogViewModel;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Nullable
@@ -51,7 +54,6 @@ public class BookViewFragment extends Fragment {
         setFastScroll(mainView, recyclerView);
         addScrollListener(recyclerView);
 
-        translateDialogViewModel =  new ViewModelProvider(requireActivity()).get(TranslateDialogViewModel.class);
         bookViewModel =  new ViewModelProvider(requireActivity()).get(BookViewModel.class);
         bookViewModel.getSelectedClientBook().observe(getViewLifecycleOwner(), new androidx.lifecycle.Observer<ClientBook>() {
             @Override
@@ -108,16 +110,34 @@ public class BookViewFragment extends Fragment {
         fastScrollerBuilder.build();
     }
 
-    public void createPopUp(TranslationWord translationWord) {
-        translateDialogViewModel.setTranslationWord(translationWord);
+    public void createPopUp(TranslationWord translationWord, float x, float y) {
 
         RelativeLayout relativeLayout = mainView.findViewById(R.id.book_view_layout);
+        View oldView = relativeLayout.findViewById(R.id.popup_layout);
+        if (oldView != null) {
+            relativeLayout.removeView(oldView);
+        }
         LayoutInflater inflater = getLayoutInflater();
         LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.translate_pop_up, mainContainer, false);
         TextView popupTranslation = linearLayout.findViewById(R.id.popup_translation);
         String translationText = getString(R.string.translate_text, translationWord.getEnglishWord());
         popupTranslation.setText(translationText);
+        popupTranslation.setOnClickListener(view-> {
+            relativeLayout.removeView(linearLayout);
+            openDialog(translationWord);
+        });
+        ImageButton closeButton = linearLayout.findViewById(R.id.popup_close);
+        closeButton.setOnClickListener(button->relativeLayout.removeView(linearLayout));
+        linearLayout.setTranslationX(x);
+        linearLayout.setTranslationY(y);
         relativeLayout.addView(linearLayout);
+
+    }
+
+    public void openDialog(TranslationWord translationWord) {
+        bookViewModel.translateWord(translationWord);
+        DialogFragment dialogFragment = new TranslateDialogFragment();
+        dialogFragment.show(getActivity().getSupportFragmentManager(), "translation_dialog");
     }
 
 
